@@ -1,0 +1,18 @@
+.footer{
+    background-color: #3A4551;
+    text-align: center;
+    padding: 30px 0px;
+    a{
+        text-decoration: none;
+        font-size: 25px;
+        color: white;
+        &::before{
+            content: "\f09b";
+            font-family: 'Font Awesome 6 Brands';
+            margin-right: 10px;
+        }
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}

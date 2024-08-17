@@ -1,0 +1,35 @@
+
+*{
+    box-sizing: border-box;
+}
+.pageable{
+    max-width: 1176px;
+    margin: 0 auto;
+    padding: 20px 0px;
+    &__pagination{
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        &__page-item{
+            display: inline-block;
+            margin-top: 20px;
+            &__page-link{
+            color: #5CB85C;
+            text-decoration: none;
+            padding: 6px 12px;
+            border: 1px solid #5CB85C;
+                &:hover{
+                    background-color: #E9ECEF;
+                    color: #5CB85C;
+                    text-decoration: underline;
+                }
+                &--active{
+                    background-color: #5CB85C;
+                    color: #fff;
+                }
+           }
+        }
+    }
+}

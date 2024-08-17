@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+}
+.side-bar{
+    display: flex;
+    flex-direction: column;
+
+    &__popular-tag{
+        font-weight: 700;
+    }
+    &__list-tag{
+        &__tag-default{
+            font-size: 13px;
+            color: #fff;
+            white-space: nowrap;
+            background-color: gray;
+            padding: 2px 8px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 3px;
+            cursor: pointer;
+            &:hover{
+                background-color: rgba(128, 128, 128, 0.816);
+            }
+        }
+    }
+}
