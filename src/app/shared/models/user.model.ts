@@ -1,31 +1,35 @@
-export interface LoginUser{
+export interface LoginUser {
     email: string,
     password: string
 }
 
-export interface LoginUserRequest{
+export interface LoginUserRequest {
     user: LoginUser
 }
-export interface NewUser{
+
+export interface NewUser {
     username: string,
     email: string,
     password: string
 }
-export interface NewUserRequest{
-   user: NewUser
+
+export interface NewUserRequest {
+    user: NewUser
 }
 
-export interface User{
+export interface User {
     email: string,
     token: string,
     username: string,
     bio: string,
     image: string
 }
-export interface UserResponse{
+
+export interface UserResponse {
     user: User
 }
-export interface UpdateUser{
+
+export interface UpdateUser {
     email: string,
     token: string,
     username: string,
@@ -33,7 +37,7 @@ export interface UpdateUser{
     image: string
 }
 
-export interface UpdateUserRequest{
+export interface UpdateUserRequest {
     user: UpdateUser
 }
 

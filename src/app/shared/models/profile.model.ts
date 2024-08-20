@@ -1,11 +1,10 @@
-export interface Profile{
+export interface Profile {
     username: string,
     bio: string,
     image: string,
-    following: boolean 
+    following: boolean
 }
 
-
-export interface ProfileResponse{
-   profile: Profile
+export interface ProfileResponse {
+    profile: Profile
 }
