@@ -16,17 +16,16 @@ export class UserService{
    }
 
     register(user: NewUserRequest): Observable<UserResponse>{
-    return this.httpCLient.post<UserResponse>(`${api_prefix}/users`, {
-        user
-    })
+        return this.httpCLient.post<UserResponse>(`${api_prefix}/users`, {
+            user
+        })
    }
 
     get(): Observable<UserResponse>{
-    return this.httpCLient.get<UserResponse>(`${api_prefix}/users`)
-   }
+        return this.httpCLient.get<UserResponse>(`${api_prefix}/users`)
+    }
 
     update(user: UpdateUserRequest): Observable<UserResponse>{
-    return this.httpCLient.put<UserResponse>(`${api_prefix}/users/login`, {
-    })
-   }
+        return this.httpCLient.put<UserResponse>(`${api_prefix}/users/login`,{})
+    }
 }
