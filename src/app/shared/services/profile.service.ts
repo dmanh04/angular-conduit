@@ -10,9 +10,7 @@ import { api_prefix } from "../constants/api.constant";
 
 export class ProfileService {
 
-    constructor(private httpClient: HttpClient) {
-
-    }
+    constructor(private httpClient: HttpClient) {}
 
     getProfile(username: string): Observable<ProfileResponse> {
         return this.httpClient.get<ProfileResponse>(`${api_prefix}/profile/${username}`)

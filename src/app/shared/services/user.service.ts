@@ -9,24 +9,23 @@ import { api_prefix } from "../constants/api.constant";
 })
 export class UserService{
 
-    constructor(private httpCLient:HttpClient){
-    }
+    constructor(private httpCLient:HttpClient){}
 
-   login(user: LoginUserRequest): Observable<UserResponse>{
+    login(user: LoginUserRequest): Observable<UserResponse>{
         return this.httpCLient.post<UserResponse>(`${api_prefix}/users/login`, user)
    }
 
-   register(user: NewUserRequest): Observable<UserResponse>{
+    register(user: NewUserRequest): Observable<UserResponse>{
     return this.httpCLient.post<UserResponse>(`${api_prefix}/users`, {
         user
     })
    }
 
-   get(): Observable<UserResponse>{
+    get(): Observable<UserResponse>{
     return this.httpCLient.get<UserResponse>(`${api_prefix}/users`)
    }
 
-   update(user: UpdateUserRequest): Observable<UserResponse>{
+    update(user: UpdateUserRequest): Observable<UserResponse>{
     return this.httpCLient.put<UserResponse>(`${api_prefix}/users/login`, {
     })
    }

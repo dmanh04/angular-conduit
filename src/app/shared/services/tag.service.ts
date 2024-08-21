@@ -9,9 +9,7 @@ import { api_prefix } from "../constants/api.constant";
 })
 export class TagService {
 
-    constructor(private httpClient: HttpClient) {
-
-    }
+    constructor(private httpClient: HttpClient) {}
 
     getTags(): Observable<TagsResponse> {
         return this.httpClient.get<TagsResponse>(`${api_prefix}/tags`)

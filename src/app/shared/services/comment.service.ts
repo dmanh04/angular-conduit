@@ -10,9 +10,7 @@ import { api_prefix } from "../constants/api.constant"
 })
 export class FavoritesService {
 
-    constructor(private httpClient: HttpClient) {
-
-    }
+    constructor(private httpClient: HttpClient) {}
 
     getComment(slug: string): Observable<SingleCommentResponse> {
         return this.httpClient.get<SingleCommentResponse>(`${api_prefix}/articles/${slug}/comments`)

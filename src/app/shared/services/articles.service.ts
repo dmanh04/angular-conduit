@@ -10,9 +10,7 @@ import { api_prefix } from "../constants/api.constant"
 })
 export class ArticleService {
 
-    constructor(private httpClient: HttpClient) {
-
-    }
+    constructor(private httpClient: HttpClient) {}
 
     getArticlesFeed(limit: number, offset: number): Observable<MultipleArticleResponse> {
         return this.httpClient.get<MultipleArticleResponse>(`${api_prefix}/articles/feed`, {
