@@ -7,7 +7,6 @@ import { api_prefix } from "../constants/api.constant";
 @Injectable({
     providedIn: "root"
 })
-
 export class ProfileService {
 
     constructor(private httpClient: HttpClient) {}
