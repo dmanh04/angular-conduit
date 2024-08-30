@@ -17,6 +17,5 @@ export const routes: Routes = [
         loadComponent: () => import('./register/register.component').then(c => c.RegisterComponent),
         title: 'Sign up - Conduit'
     }
-    
-
+   
 ];
