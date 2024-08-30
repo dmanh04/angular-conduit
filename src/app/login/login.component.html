@@ -1,21 +1,47 @@
 <div class="login">
-    <h1>Sign in</h1>
-    <a routerLink="/register">Need an account ?</a>
-    <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
-        <input type="email" [class]="loginForm.controls.email.dirty && loginForm.controls.email.invalid ? 'form-input__error' : 'form-input'" formControlName="email" placeholder="Email">
-        @if(loginForm.controls.email.dirty && loginForm.controls.email.hasError('required')){
-            <p>This field is required.</p>
-        }
-        @if(loginForm.controls.email.dirty && loginForm.controls.email.hasError('email')){
-            <p>Email must be valid.</p>
-        }
-        <input type="password" [class]="loginForm.controls.password.dirty && loginForm.controls.password.invalid ?'form-input__error' : 'form-input'"  formControlName="password" placeholder="Password">
-        @if(loginForm.controls.password.dirty && loginForm.controls.password.hasError('required')){
-            <p>This field is required.</p>
-        }
-        @if(loginForm.controls.password.dirty && loginForm.controls.password.hasError('minlength')){
-            <p>Minimum 3 characters are required.</p>
-        }
-        <button class="btn" [disabled]="loginForm.invalid ? 'disabled' : ''" type="submit">Sign in</button>
-    </form>
+  <h1>Sign in</h1>
+  <a routerLink="/register">Need an account ?</a>
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <input
+      type="email"
+      [class]="
+        loginForm.controls.email.dirty && loginForm.controls.email.invalid
+          ? 'form-input__error'
+          : 'form-input'
+      "
+      formControlName="email"
+      placeholder="Email"
+    />
+    @if(loginForm.controls.email.dirty &&
+    loginForm.controls.email.hasError('required')){
+    <p>This field is required.</p>
+    } @if(loginForm.controls.email.dirty &&
+    loginForm.controls.email.hasError('email')){
+    <p>Email must be valid.</p>
+    }
+    <input
+      type="password"
+      [class]="
+        loginForm.controls.password.dirty && loginForm.controls.password.invalid
+          ? 'form-input__error'
+          : 'form-input'
+      "
+      formControlName="password"
+      placeholder="Password"
+    />
+    @if(loginForm.controls.password.dirty &&
+    loginForm.controls.password.hasError('required')){
+    <p>This field is required.</p>
+    } @if(loginForm.controls.password.dirty &&
+    loginForm.controls.password.hasError('minlength')){
+    <p>Minimum 3 characters are required.</p>
+    }
+    <button
+      class="btn"
+      [disabled]="loginForm.invalid ? 'disabled' : ''"
+      type="submit"
+    >
+      Sign in
+    </button>
+  </form>
 </div>

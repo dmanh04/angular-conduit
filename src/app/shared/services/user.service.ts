@@ -13,7 +13,7 @@ import { Token } from '@angular/compiler';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private httpCLient: HttpClient) {}
+  constructor(private httpCLient: HttpClient) { }
 
   login(user: LoginUserRequest): Observable<UserResponse> {
     // return this.httpCLient.post<UserResponse>(`users/login`, user);
