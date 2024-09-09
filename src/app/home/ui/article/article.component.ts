@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Article } from '../../../shared/models/article.model';
+import { ArticleReposne } from '../../../shared/models';
 
 
 
@@ -15,6 +15,6 @@ import { Article } from '../../../shared/models/article.model';
 
 export class ArticleComponent {
 
-  @Input({required:true}) listArticle!:Article[];
+  @Input({required:true}) listArticle!:ArticleReposne[];
 
 }

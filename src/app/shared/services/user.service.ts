@@ -1,31 +1,15 @@
-import { Injectable } from "@angular/core";
-import { LoginUserRequest, NewUserRequest, UpdateUserRequest, UserResponse } from "../models/user.model";
-import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
-import { api_prefix } from "../constants/api.constant";
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { LoginRequest, UserResponse } from '../models';
+import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: "root"
+  providedIn: 'root',
 })
-export class UserService{
+export class UserService {
+  readonly #http = inject(HttpClient);
 
-    constructor(private httpCLient:HttpClient){}
-
-    login(user: LoginUserRequest): Observable<UserResponse>{
-        return this.httpCLient.post<UserResponse>(`${api_prefix}/users/login`, user)
-   }
-
-    register(user: NewUserRequest): Observable<UserResponse>{
-        return this.httpCLient.post<UserResponse>(`${api_prefix}/users`, {
-            user
-        })
-   }
-
-    get(): Observable<UserResponse>{
-        return this.httpCLient.get<UserResponse>(`${api_prefix}/users`)
-    }
-
-    update(user: UpdateUserRequest): Observable<UserResponse>{
-        return this.httpCLient.put<UserResponse>(`${api_prefix}/users/login`,{})
-    }
+  login(userLogin: LoginRequest): Observable<UserResponse> {
+    return this.#http.post<UserResponse>('auth/login', userLogin);
+  }
 }

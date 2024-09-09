@@ -1,43 +1,25 @@
-import { Profile } from "./profile.model";
+import { AuthorResponse } from './user.model';
 
-export interface Article {
-  slug: string,
-  title: string,
-  description: string,
-  tagList: string[],
-  createdAt: Date,
-  updatedAt: Date,
-  favorited: boolean,
-  favoritesCount: number,
-  author: Profile
+export interface ArticleReposne {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  favorited: boolean;
+  favoritesCount: number;
+  author: AuthorResponse;
 }
 
-export interface SingleArticleResponse {
-  article: Article
+export interface ListArticleReposne {
+  items: ArticleReposne[];
 }
 
-export interface MultipleArticleResponse {
-  articles: Article[],
-  articlesCount: number
-}
-
-export interface NewArticle {
-  title: string,
-  description: string,
-  body: string,
-  tagList: string[]
-}
-
-export interface NewArticleRequest {
-  article: NewArticle
-}
-
-export interface UpdateArticle {
-  title: string,
-  description: string,
-  body: string
-}
-
-export interface UpdateArticleRequest {
-  article: UpdateArticle
+export interface ArticleRequest {
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
 }
