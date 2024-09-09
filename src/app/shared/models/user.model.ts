@@ -1,43 +1,33 @@
-export interface LoginUser {
-    email: string,
-    password: string
+export interface LoginRequest {
+  email: string;
+  password: string;
 }
 
-export interface LoginUserRequest {
-    user: LoginUser
-}
-
-export interface NewUser {
-    username: string,
-    email: string,
-    password: string
-}
-
-export interface NewUserRequest {
-    user: NewUser
-}
-
-export interface User {
-    email: string,
-    token: string,
-    username: string,
-    bio: string,
-    image: string
-}
-
-export interface UserResponse {
-    user: User
-}
-
-export interface UpdateUser {
-    email: string,
-    token: string,
-    username: string,
-    bio: string,
-    image: string
+export interface RegisterRequest {
+  username: string;
+  email: string;
+  password: string;
+  retypePassword: string;
 }
 
 export interface UpdateUserRequest {
-    user: UpdateUser
+  email: string;
+  username: string;
+  bio: string;
+  image: string;
 }
 
+export interface UserResponse {
+  email: string;
+  token: string;
+  username: string;
+  bio: string;
+  image: string;
+}
+
+export interface AuthorResponse {
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
+}
