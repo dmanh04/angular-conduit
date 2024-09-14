@@ -1,9 +1,53 @@
 <div class="login">
-    <h1>Sign in</h1>
-    <a routerLink="/register">Need an account ?</a>
-    <div class="form">
-        <input type="email" class="form-input" name="email" placeholder="Email">
-        <input type="password" class="form-input" name="password" placeholder="Password">
-        <button type="button">Sign in</button>
-    </div>
+  <h1>Sign in</h1>
+  <a routerLink="/register">Need an account ?</a>
+  <div class="inner-login">
+    <app-form-error [errorStoreMessage$]="loginStore.errorStoreMessage$"></app-form-error>
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <input
+        type="email"
+        [class]="
+          loginForm.controls.email.dirty && loginForm.controls.email.invalid
+            ? 'form-input__error'
+            : 'form-input'
+        "
+        formControlName="email"
+        placeholder="Email"
+      />
+      @if(loginForm.controls.email.dirty &&
+      loginForm.controls.email.hasError('required')){
+      <p>This field is required.</p>
+      } @if(loginForm.controls.email.dirty &&
+      loginForm.controls.email.hasError('email')){
+      <p>Email must be valid.</p>
+      }
+      <input
+        type="password"
+        [class]="
+          loginForm.controls.password.dirty && loginForm.controls.password.invalid
+            ? 'form-input__error'
+            : 'form-input'
+        "
+        formControlName="password"
+        placeholder="Password"
+      />
+      @if(loginForm.controls.password.dirty &&
+      loginForm.controls.password.hasError('required')){
+      <p>This field is required.</p>
+      } @if(loginForm.controls.password.dirty &&
+      loginForm.controls.password.hasError('minlength')){
+      <p>Minimum 3 characters are required.</p>
+      }
+      <button
+        class="btn"
+        [disabled]="
+          loginForm.invalid ||
+          (this.loginStore.statusLoginStore$ | async) === true
+        "
+        type="submit"
+      >
+        Sign in
+      </button>
+    </form>
+  </div>
 </div>

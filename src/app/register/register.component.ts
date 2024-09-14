@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -9,5 +10,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+
+  // const formRegister = new FormGroup({
+  //   username: 
+  // })
 
 }
