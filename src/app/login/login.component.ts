@@ -7,7 +7,8 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LoginStore } from './login.store';
-import { provideComponentStore } from '@ngrx/component-store';import { CommonModule } from '@angular/common';
+import { provideComponentStore } from '@ngrx/component-store';
+import { CommonModule } from '@angular/common';
 import { AuthStore, ErrorStore } from '../shared/store';
 import { FormErrorComponent } from '../shared/ui/form-error/form-error.component';
 
@@ -19,7 +20,6 @@ import { FormErrorComponent } from '../shared/ui/form-error/form-error.component
   styleUrl: './login.component.scss',
   providers: [
     provideComponentStore(LoginStore),
-    provideComponentStore(AuthStore),
     provideComponentStore(ErrorStore),
   ],
 })

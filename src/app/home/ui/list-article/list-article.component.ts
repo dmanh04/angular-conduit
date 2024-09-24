@@ -1,93 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ArticleComponent } from '../article/article.component';
 import { FeedToggleComponent } from '../feed-toggle/feed-toggle.component';
 import { PopularTagComponent } from '../popular-tag/popular-tag.component';
 import { ArticleReposne } from '../../../shared/models';
+import { provideComponentStore } from '@ngrx/component-store';
+import { ListArticleStore } from './list-article.store';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-article',
   standalone: true,
-  imports: [ArticleComponent, FeedToggleComponent, PopularTagComponent],
+  imports: [
+    ArticleComponent,
+    FeedToggleComponent,
+    PopularTagComponent,
+    CommonModule,
+  ],
   templateUrl: './list-article.component.html',
   styleUrl: './list-article.component.scss',
+  providers: [provideComponentStore(ListArticleStore)],
 })
-export class ListArticleComponent {
-  listArticles: ArticleReposne[] = [
-    {
-      slug: 'ill-quantify-the-redundant-tcp-bus',
-      title: `I'll quantify the redundant TCP bus,
-                         that should hard drive the ADP bandwidth!`,
-      description: `Aut facilis qui. Cupiditate sit ratione eum sunt rerum impedit.
-                         Qui suscipit debitis et et voluptates voluptatem voluptatibus. Quas voluptatum quae corporis corporis possimus.`,
-      body: `This is the body of the article where detailed content goes.`,
-      tagList: ['sit', 'reiciendis', 'consequuntur', 'nihil'],
-      createdAt: new Date('2023-08-01'),
-      updatedAt: new Date('2023-08-01'),
-      favorited: false,
-      favoritesCount: 917,
-      author: {
-        username: 'Maksim Esteban',
-        bio: 'Author bio goes here.',
-        image: 'https://api.realworld.io/images/demo-avatar.png',
-        following: false,
-      },
-    },
-    {
-      slug: 'ill-quantify-the-redundant-tcp-bus-2',
-      title: `I'll quantify the redundant TCP bus,
-                         that should hard drive the ADP bandwidth!`,
-      description: `Aut facilis qui. Cupiditate sit ratione eum sunt rerum impedit.
-                         Qui suscipit debitis et et voluptates voluptatem voluptatibus. Quas voluptatum quae corporis corporis possimus.`,
-      body: `This is the body of the article where detailed content goes.`,
-      tagList: ['sit', 'reiciendis', 'consequuntur', 'nihil'],
-      createdAt: new Date('2023-08-01'),
-      updatedAt: new Date('2023-08-01'),
-      favorited: false,
-      favoritesCount: 917,
-      author: {
-        username: 'Maksim Esteban',
-        bio: 'Author bio goes here.',
-        image: 'https://api.realworld.io/images/demo-avatar.png',
-        following: false,
-      },
-    },
-    {
-      slug: 'ill-quantify-the-redundant-tcp-bus-3',
-      title: `I'll quantify the redundant TCP bus,
-                         that should hard drive the ADP bandwidth!`,
-      description: `Aut facilis qui. Cupiditate sit ratione eum sunt rerum impedit.
-                         Qui suscipit debitis et et voluptates voluptatem voluptatibus. Quas voluptatum quae corporis corporis possimus.`,
-      body: `This is the body of the article where detailed content goes.`,
-      tagList: ['sit', 'reiciendis', 'consequuntur', 'nihil'],
-      createdAt: new Date('2023-08-01'),
-      updatedAt: new Date('2023-08-01'),
-      favorited: false,
-      favoritesCount: 917,
-      author: {
-        username: 'Maksim Esteban',
-        bio: 'Author bio goes here.',
-        image: 'https://api.realworld.io/images/demo-avatar.png',
-        following: false,
-      },
-    },
-    {
-      slug: 'ill-quantify-the-redundant-tcp-bus-4',
-      title: `I'll quantify the redundant TCP bus,
-                         that should hard drive the ADP bandwidth!`,
-      description: `Aut facilis qui. Cupiditate sit ratione eum sunt rerum impedit.
-                         Qui suscipit debitis et et voluptates voluptatem voluptatibus. Quas voluptatum quae corporis corporis possimus.`,
-      body: `This is the body of the article where detailed content goes.`,
-      tagList: ['sit', 'reiciendis', 'consequuntur', 'nihil'],
-      createdAt: new Date('2023-08-01'),
-      updatedAt: new Date('2023-08-01'),
-      favorited: false,
-      favoritesCount: 917,
-      author: {
-        username: 'Maksim Esteban',
-        bio: 'Author bio goes here.',
-        image: 'https://api.realworld.io/images/demo-avatar.png',
-        following: false,
-      },
-    },
-  ];
+export class ListArticleComponent implements OnInit {
+  readonly listArticleStore = inject(ListArticleStore);
+
+  ngOnInit(): void {
+    this.listArticleStore.findAllArticleByFilter({
+      page: 1,
+      size: 10,
+    });
+  }
 }

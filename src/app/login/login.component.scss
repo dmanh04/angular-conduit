@@ -11,10 +11,10 @@
     color: #449c44;
     text-decoration: none;
   }
-  .inner-login{
+  .inner-login {
     display: flex;
     flex-direction: column;
-    padding: 30px 100px;
+    padding: 10px 100px;
     .form {
       display: flex;
       flex-direction: column;
@@ -54,5 +54,4 @@
       }
     }
   }
-  
 }

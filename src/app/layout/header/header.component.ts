@@ -11,12 +11,15 @@ import { map } from 'rxjs';
   imports: [RouterLink, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  providers: [provideComponentStore(AuthStore)],
 })
 export class HeaderComponent {
   readonly authStore = inject(AuthStore);
 
   readonly username$ = this.authStore.selectCurrentUser$.pipe(
-    map((it) => it?.username)
+    map((it) => it?.username),
   );
+
+  logout() {
+    this.authStore.logout();
+  }
 }

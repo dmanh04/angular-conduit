@@ -3,8 +3,9 @@ import { tapResponse } from '@ngrx/operators';
 import { AuthResponse, BaseResponse, CurrentUser } from '../models';
 import { inject, Injectable } from '@angular/core';
 import { LocalStorage, STORAGE_KEY } from '../constants';
-import { switchMap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 import { UserService } from '../services';
+import { Router } from '@angular/router';
 
 interface AuthState {
   currentUser: CurrentUser | null;
@@ -16,22 +17,25 @@ export class AuthStore
   extends ComponentStore<AuthState>
   implements OnStoreInit
 {
-  readonly #userService = inject(UserService);
+  readonly #userService = inject(UserService, {});
   readonly #localStorageService = inject(LocalStorage);
+  readonly #router = inject(Router);
 
   ngrxOnStoreInit(): void {
     this.setState({
       currentUser: this.#localStorageService.getItem<CurrentUser>(
-        STORAGE_KEY.user
+        STORAGE_KEY.user,
       ),
-      isAuthenticated: false,
+      isAuthenticated: !!this.#localStorageService.getItem<AuthResponse>(
+        STORAGE_KEY.token,
+      ),
     });
   }
 
   readonly selectCurrentUser$ = this.select((state) => state.currentUser);
 
   readonly selectIsAuthenticated$ = this.select(
-    (state) => state.isAuthenticated
+    (state) => state.isAuthenticated,
   );
 
   readonly getCurrentUser = this.effect<void>(
@@ -49,12 +53,25 @@ export class AuthStore
           error: (error) => {
             console.log(error);
           },
-        })
+        }),
       );
-    })
+    }),
   );
 
   readonly handleAfterRecieveToken = (auth: AuthResponse) => {
     this.#localStorageService.setItem(STORAGE_KEY.token, auth);
   };
+
+  readonly logout = this.effect<void>(
+    tap(() => {
+      this.patchState({
+        currentUser: null,
+        isAuthenticated: false,
+      });
+      console.log('oke');
+      this.#localStorageService.removeItem(STORAGE_KEY.user);
+      this.#localStorageService.removeItem(STORAGE_KEY.token);
+      this.#router.navigate(['/login']);
+    }),
+  );
 }

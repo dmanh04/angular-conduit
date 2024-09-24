@@ -10,11 +10,12 @@ import {
 import { provideEnvironmentConfig } from './shared/utils/di';
 import { environment } from '../environments/environment';
 
-import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {
   apiAuthInterceptor,
   apiPrefixInterceptor,
 } from './shared/interceptors';
+import { provideComponentStore } from '@ngrx/component-store';
+import { AuthStore } from './shared/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,14 +26,7 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([apiPrefixInterceptor, apiAuthInterceptor])
     ),
-    // provideStore({}),
-    provideStoreDevtools({
-      maxAge: 25, // Retains last 25 states
-      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
-      trace: false, // If set to true, will include stack trace for every dispatched action
-      traceLimit: 75, // Maximum stack trace frames to be stored (if trace is enabled)
-      connectInZone: true // Ensures the connection is established within the Angular zone
-    }),
     provideEnvironmentConfig(environment),
+    provideComponentStore(AuthStore)
   ],
 };

@@ -5,3 +5,8 @@ export interface PageReponse<T> {
   totalElements: number;
   items: T[];
 }
+
+export interface PagingQueryParams {
+  page: number;
+  size: number;
+}

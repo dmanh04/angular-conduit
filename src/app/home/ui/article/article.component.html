@@ -1,36 +1,38 @@
-@for (item of listArticle; track $index) {
-<div class="article">
-  <div class="article__meta">
-    <img src="{{ item.author.image }}" alt="" />
-    <div class="article__meta__info">
-      <a href="" class="article__meta__info--author">{{ item.author }}</a>
-      <p class="article__meta__info--date">
-        {{ item.createdAt | date : "dd MM, yyyy" }}
-      </p>
+@for (item of listArticle | async; track $index) {
+  <div class="article">
+    <div class="article__meta">
+      <img src="{{ item.author.image }}" alt="" />
+      <div class="article__meta__info">
+        <a href="" class="article__meta__info--author">{{
+          item.author.username
+        }}</a>
+        <p class="article__meta__info--date">
+          {{ item.createdAt | date: "dd MM, yyyy hh:mm" }}
+        </p>
+      </div>
+      <button class="btn btn-sm ms-auto favorite-btn">
+        {{ item.favorited }}
+      </button>
     </div>
-    <button class="btn btn-sm ms-auto favorite-btn">
-      {{ item.favorited }}
-    </button>
-  </div>
-  <div class="article__preview-link">
-    <h1 class="article__preview-link__title">{{ item.title }}</h1>
-    <p class="article__preview-link__desc">
-      {{ item.description }}
-    </p>
-    <div class="article__preview-link__footer">
-      <span class="article__preview-link__footer--read-more">
-        Read more...
-      </span>
-      <div class="articlearticle__preview-link__footer__tags">
-        @for (tag of item.tagList; track $index) {
-        <span class="article__preview-link__footer__tag--tag-default">
-          {{ tag }}
+    <div class="article__preview-link">
+      <h1 class="article__preview-link__title">{{ item.title }}</h1>
+      <p class="article__preview-link__desc">
+        {{ item.description }}
+      </p>
+      <div class="article__preview-link__footer">
+        <span class="article__preview-link__footer--read-more">
+          Read more...
         </span>
-        }
+        <div class="articlearticle__preview-link__footer__tags">
+          @for (tag of item.tagList; track $index) {
+            <span class="article__preview-link__footer__tag--tag-default">
+              {{ tag }}
+            </span>
+          }
+        </div>
       </div>
     </div>
   </div>
-</div>
 } @empty {
-<div>No article in list</div>
+  <div>No article in list</div>
 }
