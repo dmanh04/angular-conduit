@@ -12,11 +12,19 @@ import { ArticleSerice, GetArticleQueryParams } from '../../../shared/services';
 interface ArticleState {
   articles: ArticleReposne[];
   isLoading: boolean;
+  totalPages: number;
+  totalElements: number;
+  page: number;
+  size: number;
 }
 
 const initArticleState: ArticleState = {
   articles: [],
   isLoading: false,
+  totalPages: 0,
+  totalElements: 0,
+  page: 1,
+  size: 10,
 };
 
 @Injectable()
@@ -49,6 +57,10 @@ export class ListArticleStore
             console.log(res);
             this.patchState({
               articles: res.data.items,
+              page: res.data.page,
+              size: res.data.size,
+              totalPages: res.data.totalPages,
+              totalElements: res.data.totalElements,
             });
           },
           error: (error) => {
