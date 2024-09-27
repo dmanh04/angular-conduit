@@ -1,5 +1,5 @@
-export interface ErrorResponse<T> {
+export interface ErrorResponse {
   timestamp: Date;
   code: number;
-  messages: T;
+  messages: string[];  
 }

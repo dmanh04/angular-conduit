@@ -13,10 +13,6 @@ export interface ArticleReposne {
   author: AuthorResponse;
 }
 
-export interface ListArticleReposne {
-  items: ArticleReposne[];
-}
-
 export interface ArticleRequest {
   title: string;
   description: string;

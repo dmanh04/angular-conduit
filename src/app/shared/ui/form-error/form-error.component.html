@@ -1,0 +1,5 @@
+<ul>
+    @for (item of (errorStoreMessage$ | async); track $index) {
+        <li>{{item}}</li>
+    }
+</ul>

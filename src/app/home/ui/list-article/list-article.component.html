@@ -1,12 +1,17 @@
-<div class="list-article">
+@if ((listArticleStore.getLoading$ | async) == true) {
+  dang xoay
+} @else {
+  <div class="list-article">
     <div class="row">
-        <div class="col-md-9">
-            <app-feed-toggle></app-feed-toggle>
-            <app-article [listArticle]="listArticles"></app-article>
-        </div>
-        <div class="col-md-3">
-            <app-popular-tag></app-popular-tag>
-        </div>
-    
+      <div class="col-md-9">
+        <app-feed-toggle></app-feed-toggle>
+        <app-article
+          [listArticle]="this.listArticleStore.getArticles$"
+        ></app-article>
+      </div>
+      <div class="col-md-3">
+        <app-popular-tag></app-popular-tag>
+      </div>
     </div>
-</div>
+  </div>
+}

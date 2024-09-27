@@ -19,10 +19,21 @@ export interface UpdateUserRequest {
 
 export interface UserResponse {
   email: string;
-  token: string;
   username: string;
   bio: string;
   image: string;
+}
+
+export interface CurrentUser {
+  email: string;
+  username: string;
+  bio: string;
+  image: string;
+}
+
+export interface AuthResponse{
+  token: string;
+  refreshToken: string;
 }
 
 export interface AuthorResponse {

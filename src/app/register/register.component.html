@@ -1,10 +1,87 @@
 <div class="register">
-    <h1>Sign up</h1>
-    <a routerLink="/login">Have an account ?</a>
-    <div class="form">
-        <input type="text" class="form-input" name="username" placeholder="Username">
-        <input type="email" class="form-input" name="email" placeholder="Email">
-        <input type="password" class="form-input" name="password" placeholder="Password">
-        <button type="button">Sign up</button>
-    </div>
+  <h1>Sign up</h1>
+  <a routerLink="/login">Have an account ?</a>
+  <app-form-error
+    [errorStoreMessage$]="this.registerStore.getErrorState$"
+  ></app-form-error>
+  <div class="inner-register">
+    <form class="form" [formGroup]="registerForm" (ngSubmit)="submit()">
+      <input
+        type="text"
+        [class]="
+          registerForm.controls.username.dirty &&
+          registerForm.controls.username.invalid
+            ? 'form-input__error'
+            : 'form-input'
+        "
+        formControlName="username"
+        placeholder="Username"
+      />
+
+      @if (
+        registerForm.controls.username.dirty &&
+        registerForm.controls.username.invalid
+      ) {
+        <p>This field is required.</p>
+      }
+
+      <input
+        type="text"
+        [class]="
+          registerForm.controls.email.dirty &&
+          registerForm.controls.email.invalid
+            ? 'form-input__error'
+            : 'form-input'
+        "
+        formControlName="email"
+        placeholder="Email"
+      />
+
+      @if (
+        registerForm.controls.email.dirty && registerForm.controls.email.invalid
+      ) {
+        <p>Email must be valid.</p>
+      }
+
+      <input
+        type="password"
+        [class]="
+          registerForm.controls.password.dirty &&
+          registerForm.controls.password.invalid
+            ? 'form-input__error'
+            : 'form-input'
+        "
+        formControlName="password"
+        placeholder="Password"
+      />
+      @if (
+        registerForm.controls.password.dirty &&
+        registerForm.controls.password.hasError("required")
+      ) {
+        <p>This field is required.</p>
+      }
+      @if (
+        registerForm.controls.password.dirty &&
+        registerForm.controls.password.hasError("minlength")
+      ) {
+        <p>Minimum 3 characters are required.</p>
+      }
+      <input
+        type="password"
+        class="form-input"
+        formControlName="retypePassword"
+        placeholder="Retype password"
+      />
+      <button
+        class="btn"
+        type="submit"
+        [disabled]="
+          registerForm.invalid ||
+          (registerStore.getStatusState$ | async) === true
+        "
+      >
+        Sign up
+      </button>
+    </form>
+  </div>
 </div>

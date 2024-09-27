@@ -2,30 +2,28 @@ import { ComponentStore, OnStoreInit } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { FormStatus } from '../shared/constants';
 import { inject, Injectable } from '@angular/core';
-import { UserService } from '../shared/services';
-import { exhaustMap, map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import {
-  AuthResponse,
   BaseResponse,
+  CurrentUser,
   ErrorResponse,
-  UserResponse,
+  RegisterRequest,
 } from '../shared/models';
-import { AuthStore } from '../shared/store';
+import { UserService } from '../shared/services';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
-interface LoginFormState {
+interface RegisterFormState {
   status: FormStatus;
   error: string[];
 }
 
 @Injectable()
-export class LoginStore
-  extends ComponentStore<LoginFormState>
+export class RegisterStore
+  extends ComponentStore<RegisterFormState>
   implements OnStoreInit
 {
   readonly #userService = inject(UserService);
-  readonly #authStore = inject(AuthStore);
   readonly #router = inject(Router);
 
   ngrxOnStoreInit() {
@@ -35,33 +33,28 @@ export class LoginStore
     });
   }
 
-  readonly statusLoginStore$ = this.select((state) => {
-    return state.status;
-  }).pipe(map((status) => status === 'loading'));
-
-  readonly getError$ = this.select((state) => {
+  readonly getErrorState$ = this.select((state) => {
     return state.error;
   });
 
-  readonly login = this.effect<{
-    email: string;
-    password: string;
-  }>(
-    exhaustMap((params) => {
+  readonly getStatusState$ = this.select((state) => {
+    return state.status;
+  }).pipe(map((status) => status === 'loading'));
+
+  readonly register = this.effect<RegisterRequest>(
+    switchMap((registerRequest) => {
       this.patchState({
         status: 'loading',
       });
-
-      return this.#userService.login(params).pipe(
+      return this.#userService.register(registerRequest).pipe(
         tapResponse({
-          next: (res: BaseResponse<AuthResponse>) => {
-            this.#authStore.handleAfterRecieveToken(res.data);
-            this.#authStore.getCurrentUser();
-            this.#router.navigate(['/']);
+          next: (res: BaseResponse<CurrentUser>) => {
+            this.#router.navigate(['/login']);
           },
-          error: (errorRes: HttpErrorResponse) => {
+          error: (error: HttpErrorResponse) => {
+            const baseErrorr: ErrorResponse = error.error;
             this.patchState({
-              error: errorRes.error.messages,
+              error: baseErrorr.messages,
             });
           },
           finalize: () => {
@@ -69,8 +62,8 @@ export class LoginStore
               status: 'idle',
             });
           },
-        }),
+        })
       );
-    }),
+    })
   );
 }
