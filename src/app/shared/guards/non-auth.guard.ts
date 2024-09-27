@@ -8,7 +8,7 @@ export const nonAuthGuard: CanMatchFn = () => {
   const router = inject(Router);
 
   return authStore.selectIsAuthenticated$.pipe(
-    map((it) => !it || router.createUrlTree(['/'])),
+    map((state) => !state || router.createUrlTree(['/'])),
     take(1),
   );
 };

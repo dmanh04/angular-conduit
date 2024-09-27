@@ -16,7 +16,7 @@ export class HeaderComponent {
   readonly authStore = inject(AuthStore);
 
   readonly username$ = this.authStore.selectCurrentUser$.pipe(
-    map((it) => it?.username),
+    map((state) => state?.username),
   );
 
   logout() {

@@ -20,24 +20,25 @@ export const [injectLocalStorage] = createInjectionToken('local storage', {
 export class LocalStorage {
   private readonly ls = injectLocalStorage();
 
-
-  getItem<TData = string>(key: string): ( TData extends object ? TData: string) | null{
-    if(!this.ls){
-        return null;
+  getItem<TData = string>(
+    key: string,
+  ): (TData extends object ? TData : string) | null {
+    if (!this.ls) {
+      return null;
     }
 
     const item = this.ls.getItem(key);
-    if(!item){
-        return null;
+    if (!item) {
+      return null;
     }
-    try{
-        const parsed = JSON.parse(item);
-        if(typeof parsed === 'object'){
-            return parsed;
-        }
-        return item as TData extends object ? TData : string;
-    }catch(e){
-        return item as TData extends object ? TData : string;
+    try {
+      const parsed = JSON.parse(item);
+      if (typeof parsed === 'object') {
+        return parsed;
+      }
+      return item as TData extends object ? TData : string;
+    } catch (e) {
+      return item as TData extends object ? TData : string;
     }
   }
 
@@ -56,5 +57,4 @@ export class LocalStorage {
       this.ls.removeItem(key);
     }
   }
-  
 }

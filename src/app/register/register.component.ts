@@ -9,12 +9,12 @@ import { RouterLink } from '@angular/router';
 import { provideComponentStore } from '@ngrx/component-store';
 import { RegisterStore } from './register.store';
 import { FormErrorComponent } from '../shared/ui/form-error/form-error.component';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, FormErrorComponent, CommonModule],
+  imports: [RouterLink, ReactiveFormsModule, FormErrorComponent, AsyncPipe],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   providers: [provideComponentStore(RegisterStore)],
@@ -43,13 +43,10 @@ export class RegisterComponent {
 
   submit() {
     if (this.registerForm.valid) {
-      this.registerStore.register({
-        email: this.registerForm.controls.email.getRawValue()!,
-        username: this.registerForm.controls.username.getRawValue()!,
-        password: this.registerForm.controls.password.getRawValue()!,
-        retypePassword:
-          this.registerForm.controls.retypePassword.getRawValue()!,
-      });
+      this.registerStore.register(this.registerForm.getRawValue());
+    }
+    else{
+      return;
     }
   }
 }

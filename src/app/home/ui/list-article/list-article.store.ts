@@ -6,7 +6,7 @@ import {
   PageReponse,
 } from '../../../shared/models';
 import { inject, Injectable, Signal } from '@angular/core';
-import { exhaustMap } from 'rxjs';
+import { exhaustMap, switchMap } from 'rxjs';
 import { ArticleSerice, GetArticleQueryParams } from '../../../shared/services';
 
 interface ArticleState {
@@ -47,14 +47,13 @@ export class ListArticleStore
   });
 
   readonly findAllArticleByFilter = this.effect<GetArticleQueryParams>(
-    exhaustMap((params) => {
+    switchMap((params) => {
       this.patchState({
         isLoading: true,
       });
       return this.#articleService.findAllArticleByFilter(params).pipe(
         tapResponse({
           next: (res: BaseResponse<PageReponse<ArticleReposne>>) => {
-            console.log(res);
             this.patchState({
               articles: res.data.items,
               page: res.data.page,

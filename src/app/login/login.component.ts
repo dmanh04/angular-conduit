@@ -8,14 +8,14 @@ import {
 import { RouterLink } from '@angular/router';
 import { LoginStore } from './login.store';
 import { provideComponentStore } from '@ngrx/component-store';
-import { CommonModule } from '@angular/common';
-import { AuthStore, ErrorStore } from '../shared/store';
+import { AsyncPipe } from '@angular/common';
+import { ErrorStore } from '../shared/store';
 import { FormErrorComponent } from '../shared/ui/form-error/form-error.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule, FormErrorComponent],
+  imports: [RouterLink, ReactiveFormsModule, AsyncPipe, FormErrorComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: [
@@ -28,20 +28,20 @@ export class LoginComponent {
 
   readonly loginForm = new FormGroup({
     email: new FormControl('', {
+      nonNullable: true,
       validators: [Validators.required, Validators.email],
     }),
     password: new FormControl('', {
+      nonNullable: true,
       validators: [Validators.required, Validators.minLength(3)],
     }),
   });
 
   login() {
     if (this.loginForm.invalid) {
+      return;
     } else {
-      this.loginStore.login({
-        email: this.loginForm.controls.email.getRawValue()!,
-        password: this.loginForm.controls.password.getRawValue()!,
-      });
+      this.loginStore.login(this.loginForm.getRawValue());
     }
   }
 }

@@ -60,10 +60,8 @@ export class LoginStore
             this.#router.navigate(['/']);
           },
           error: (errorRes: HttpErrorResponse) => {
-            console.log(errorRes);
-            const error: ErrorResponse = errorRes.error;
             this.patchState({
-              error: error.messages,
+              error: errorRes.error.messages,
             });
           },
           finalize: () => {
