@@ -1,59 +1,33 @@
-import { Component } from '@angular/core';
-
-import {ArticleComponent} from '../article/article.component'
-import {FeedToggleComponent} from '../feed-toggle/feed-toggle.component'
-import {PopularTagComponent} from '../popular-tag/popular-tag.component'
-import { Article } from '../../../shared/models/article.model';
-
+import { Component, inject, OnInit } from '@angular/core';
+import { ArticleComponent } from '../article/article.component';
+import { FeedToggleComponent } from '../feed-toggle/feed-toggle.component';
+import { PopularTagComponent } from '../popular-tag/popular-tag.component';
+import { ArticleReposne } from '../../../shared/models';
+import { provideComponentStore } from '@ngrx/component-store';
+import { ListArticleStore } from './list-article.store';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-article',
   standalone: true,
-  imports: [ArticleComponent, FeedToggleComponent, PopularTagComponent],
+  imports: [
+    ArticleComponent,
+    FeedToggleComponent,
+    PopularTagComponent,
+    CommonModule,
+  ],
   templateUrl: './list-article.component.html',
-  styleUrl: './list-article.component.scss'
+  styleUrl: './list-article.component.scss',
+  providers: [provideComponentStore(ListArticleStore)],
 })
-export class ListArticleComponent {
-  listArticles:Article[] = [
-    { avatar:'https://api.realworld.io/images/demo-avatar.png',
-      author: 'Maksim Esteban' ,
-      date: new Date('2023-08-01'),
-      title: `Ill quantify the redundant TCP bus,
-             that should hard drive the ADP bandwidth!`,
-      description: ` Aut facilis qui. Cupiditate sit ratione eum sunt rerum impedit.
-             Qui suscipit debitis et et voluptates voluptatem voluptatibus. Quas voluptatum quae corporis corporis possimus.`,
-      favorite: 917,
-      footer_tags: ['sit', 'reiciendis', 'consequuntur', 'nihil']              
-    },
-    { avatar:'https://api.realworld.io/images/demo-avatar.png',
-      author: 'Maksim Esteban' ,
-      date: new Date('2023-08-01'),
-      title: `Ill quantify the redundant TCP bus,
-             that should hard drive the ADP bandwidth!`,
-      description: ` Aut facilis qui. Cupiditate sit ratione eum sunt rerum impedit.
-             Qui suscipit debitis et et voluptates voluptatem voluptatibus. Quas voluptatum quae corporis corporis possimus.`,
-      favorite: 917,
-      footer_tags: ['sit', 'reiciendis', 'consequuntur', 'nihil']              
-    },
-    { avatar:'https://api.realworld.io/images/demo-avatar.png',
-      author: 'Maksim Esteban' ,
-      date: new Date('2023-08-01'),
-      title: `Ill quantify the redundant TCP bus,
-             that should hard drive the ADP bandwidth!`,
-      description: ` Aut facilis qui. Cupiditate sit ratione eum sunt rerum impedit.
-             Qui suscipit debitis et et voluptates voluptatem voluptatibus. Quas voluptatum quae corporis corporis possimus.`,
-      favorite: 917,
-      footer_tags: ['sit', 'reiciendis', 'consequuntur', 'nihil']              
-    },
-    { avatar:'https://api.realworld.io/images/demo-avatar.png',
-      author: 'Maksim Esteban' ,
-      date: new Date('2023-08-01'),
-      title: `Ill quantify the redundant TCP bus,
-             that should hard drive the ADP bandwidth!`,
-      description: ` Aut facilis qui. Cupiditate sit ratione eum sunt rerum impedit.
-             Qui suscipit debitis et et voluptates voluptatem voluptatibus. Quas voluptatum quae corporis corporis possimus.`,
-      favorite: 917,
-      footer_tags: ['sit', 'reiciendis', 'consequuntur', 'nihil']              
-    }
-  ];
+export class ListArticleComponent implements OnInit {
+  readonly listArticleStore = inject(ListArticleStore);
+
+  ngOnInit(): void {
+    this.listArticleStore.findAllArticleByFilter({
+      page: 1,
+      size: 10,
+    });
+  }
 }

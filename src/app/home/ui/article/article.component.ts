@@ -1,20 +1,15 @@
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Article } from '../../../shared/models/article.model';
-
-
+import { ArticleReposne } from '../../../shared/models';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, CommonModule],
   templateUrl: './article.component.html',
-  styleUrl: './article.component.scss'
+  styleUrl: './article.component.scss',
 })
-
-
 export class ArticleComponent {
-
-  @Input({required:true}) listArticle!:Article[];
-
+  @Input({ required: true }) listArticle!: Observable<ArticleReposne[]>;
 }

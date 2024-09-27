@@ -1,11 +1,16 @@
+<header class="header">
+  <a routerLink="/" class="logo"> conduit </a>
 
-    <header class="header">
-        <a href="" class="logo">
-            conduit
-        </a>
-        <ul class="nav-bar">
-            <li class="nav-item__active"><a href="">Home</a></li>
-            <li class="nav-item"><a href="">Sign in</a></li>
-            <li class="nav-item"><a href="">Sign up</a></li>
-        </ul>
-    </header>
+  @if ((authStore.selectIsAuthenticated$ | async) === true) {
+    <ul class="nav-bar">
+      <li class="nav-item">{{ username$ | async }}</li>
+      <li class="nav-item logout" (click)="logout()">Logout</li>
+    </ul>
+  } @else {
+    <ul class="nav-bar">
+      <li class="nav-item__active"><a routerLink="">Home</a></li>
+      <li class="nav-item"><a routerLink="/login">Sign in</a></li>
+      <li class="nav-item"><a routerLink="/register">Sign up</a></li>
+    </ul>
+  }
+</header>
