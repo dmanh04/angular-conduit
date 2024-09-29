@@ -25,11 +25,18 @@ import { TagSelectorsComponent } from '../shared/ui/tag-selectors/tag-selectors.
   providers: [provideComponentStore(ArticleEditorStore)],
 })
 export class ArticleEditorComponent implements OnInit {
+  showAlert = false;
+
   ngOnInit(): void {
     this.articleEditorStore.isSuccess$.subscribe((value) => {
       if (value === true) {
         this.articleForm.reset();
+        this.showAlert = true;
       }
+
+      setTimeout(() =>{
+        this.showAlert = false;
+      }, 2000)
     });
   }
   readonly articleEditorStore = inject(ArticleEditorStore);
