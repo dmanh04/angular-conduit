@@ -1,0 +1,78 @@
+@if((articleEditorStore.isSuccess$ | async) === true){
+  <div class="alert alert-success" role="alert">
+    Add article sucessful
+  </div>
+}
+<div class="article-editor">
+  <form class="form" [formGroup]="articleForm">
+    <app-form-error
+      [errorStoreMessage$]="articleEditorStore.errorMessages$"
+    ></app-form-error>
+    <div class="form-item">
+      <input
+        [class]="
+          articleForm.controls.title.dirty && articleForm.controls.title.invalid
+            ? 'form-input__error'
+            : 'form-input'
+        "
+        formControlName="title"
+        type="text"
+        placeholder="Article Title"
+      />
+      @if (
+        articleForm.controls.title.dirty &&
+        articleForm.controls.title.hasError("required")
+      ) {
+        <p class="error-mess">Title required</p>
+      }
+    </div>
+    <div class="form-item">
+      <input
+        class="form-input"
+        formControlName="description"
+        type="text"
+        placeholder="What's this article about? "
+      />
+    </div>
+
+    <div class="form-item">
+      <textarea
+        [class]="
+          articleForm.controls.body.dirty && articleForm.controls.body.invalid
+            ? 'form-input__error'
+            : 'form-input'
+        "
+        formControlName="body"
+        type="text"
+        rows="5"
+        placeholder="Write your article (in markdown)"
+      ></textarea>
+      @if (
+        articleForm.controls.body.dirty &&
+        articleForm.controls.body.hasError("required")
+      ) {
+        <p class="error-mess">Body required</p>
+      }
+    </div>
+
+    <div class="form-item">
+      <app-tag-selectors
+        [formControl]="articleForm.controls.tagList"
+      ></app-tag-selectors>
+    </div>
+
+    <div class="form-btn">
+      <button
+        (click)="submit()"
+        class="btn"
+        [disabled]="
+          articleForm.invalid ||
+          (articleEditorStore.isLoading$ | async) === true
+        "
+        type="button"
+      >
+        Publish Article
+      </button>
+    </div>
+  </form>
+</div>

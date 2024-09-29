@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
   ArticleReposne,
+  ArticleRequest,
   BaseResponse,
   PageReponse,
   PagingQueryParams,
@@ -31,5 +32,10 @@ export class ArticleSerice {
         },
       },
     );
+  }
+
+
+  addArticle(newArticle: ArticleRequest): Observable<BaseResponse<ArticleReposne>>{
+    return this.#http.post<BaseResponse<ArticleReposne>>('articles', newArticle);
   }
 }

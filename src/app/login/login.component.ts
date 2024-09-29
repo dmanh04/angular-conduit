@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
 import { LoginStore } from './login.store';
 import { provideComponentStore } from '@ngrx/component-store';
 import { AsyncPipe } from '@angular/common';
-import { ErrorStore } from '../shared/store';
 import { FormErrorComponent } from '../shared/ui/form-error/form-error.component';
 
 @Component({
@@ -20,7 +19,6 @@ import { FormErrorComponent } from '../shared/ui/form-error/form-error.component
   styleUrl: './login.component.scss',
   providers: [
     provideComponentStore(LoginStore),
-    provideComponentStore(ErrorStore),
   ],
 })
 export class LoginComponent {
@@ -40,8 +38,7 @@ export class LoginComponent {
   login() {
     if (this.loginForm.invalid) {
       return;
-    } else {
-      this.loginStore.login(this.loginForm.getRawValue());
     }
+    this.loginStore.login(this.loginForm.getRawValue());
   }
 }

@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthStore } from '../../shared/store';
-import { provideComponentStore } from '@ngrx/component-store';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { map } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, AsyncPipe, NzIconModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

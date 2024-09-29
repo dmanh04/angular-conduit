@@ -42,11 +42,9 @@ export class RegisterComponent {
   });
 
   submit() {
-    if (this.registerForm.valid) {
-      this.registerStore.register(this.registerForm.getRawValue());
-    }
-    else{
+    if (this.registerForm.invalid) {
       return;
     }
+    this.registerStore.register(this.registerForm.getRawValue());
   }
 }
