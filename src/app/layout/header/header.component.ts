@@ -4,6 +4,7 @@ import { AuthStore } from '../../shared/store';
 import { AsyncPipe } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { map } from 'rxjs';
+import { MENU } from '../../shared/constants';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { map } from 'rxjs';
 })
 export class HeaderComponent {
   readonly authStore = inject(AuthStore);
+  readonly menu = MENU;
 
   readonly username$ = this.authStore.selectCurrentUser$.pipe(
     map((state) => state?.username),
@@ -22,4 +24,6 @@ export class HeaderComponent {
   logout() {
     this.authStore.logout();
   }
+
+
 }

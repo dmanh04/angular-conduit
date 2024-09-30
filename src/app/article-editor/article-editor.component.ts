@@ -34,9 +34,9 @@ export class ArticleEditorComponent implements OnInit {
         this.showAlert = true;
       }
 
-      setTimeout(() =>{
+      setTimeout(() => {
         this.showAlert = false;
-      }, 2000)
+      }, 2000);
     });
   }
   readonly articleEditorStore = inject(ArticleEditorStore);

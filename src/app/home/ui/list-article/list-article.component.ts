@@ -6,7 +6,6 @@ import { ArticleReposne } from '../../../shared/models';
 import { provideComponentStore } from '@ngrx/component-store';
 import { ListArticleStore } from './list-article.store';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-article',

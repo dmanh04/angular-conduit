@@ -4,7 +4,7 @@
   @if ((authStore.selectIsAuthenticated$ | async) === true) {
     <ul class="nav-bar">
       <li class="nav-item__active"><a routerLink="">Home</a></li>
-      <li class="nav-item__active"><a routerLink="/editor"><span nz-icon nzType="edit" nzTheme="outline"></span> New article</a></li>
+      <li class="nav-item__active"><a routerLink="/editor"><span nz-icon nzType="edit" nzTheme="outline"></span>New article</a></li>
       <li class="nav-item">{{ username$ | async }}</li>
       <li class="nav-item logout" (click)="logout()">Logout</li>
     </ul>
