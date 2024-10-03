@@ -9,7 +9,8 @@ import { provideComponentStore } from '@ngrx/component-store';
 import { ArticleEditorStore } from './article-editor.store';
 import { FormErrorComponent } from '../shared/ui/form-error/form-error.component';
 import { AsyncPipe } from '@angular/common';
-import { TagSelectorsComponent } from '../shared/ui/tag-selectors/tag-selectors.component';
+import { TagSelectorsComponent } from '../home/ui/popular-tag/ui/tag-selectors/tag-selectors.component';
+
 
 @Component({
   selector: 'app-article-editor',

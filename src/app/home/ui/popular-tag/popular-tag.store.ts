@@ -44,13 +44,11 @@ export class PopularTagStore
       return this.#tagService.getTags().pipe(
         tapResponse({
           next: (res) => {
-            console.log(res);
             this.patchState({
               tags: res.data,
             });
           },
           error: (err: HttpErrorResponse) => {
-            console.log(err);
             this.patchState({
               error: err.error.messages,
             });

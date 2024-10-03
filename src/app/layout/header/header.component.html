@@ -3,16 +3,21 @@
 
   @if ((authStore.selectIsAuthenticated$ | async) === true) {
     <ul class="nav-bar">
-      <li class="nav-item__active"><a routerLink="">Home</a></li>
-      <li class="nav-item__active"><a routerLink="/editor"><span nz-icon nzType="edit" nzTheme="outline"></span>New article</a></li>
+      @for (item of menuAuth; track $index) {
+        <li class="nav-item__active">
+          <a routerLink="{{ item.url }}">{{ item.title }}</a>
+        </li>
+      }
       <li class="nav-item">{{ username$ | async }}</li>
       <li class="nav-item logout" (click)="logout()">Logout</li>
     </ul>
   } @else {
     <ul class="nav-bar">
-      <li class="nav-item__active"><a routerLink="">Home</a></li>
-      <li class="nav-item"><a routerLink="/login">Sign in</a></li>
-      <li class="nav-item"><a routerLink="/register">Sign up</a></li>
+      @for (item of menuNonAuth; track $index) {
+        <li class="nav-item__active">
+          <a routerLink="{{ item.url }}">{{ item.title }}</a>
+        </li>
+      }
     </ul>
   }
 </header>

@@ -49,7 +49,6 @@ export class ArticleEditorStore
             this.patchState({
               status: 'success',
             });
-            // this.#router.navigate(['/']);
           },
           error: (errorRes: HttpErrorResponse) => {
             this.patchState({
@@ -57,11 +56,6 @@ export class ArticleEditorStore
               status: 'idle',
             });
           },
-          // finalize: () => {
-          //   this.patchState({
-          //     status: 'idle',
-          //   });
-          // },
         }),
       );
     }),
