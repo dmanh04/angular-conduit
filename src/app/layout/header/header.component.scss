@@ -27,13 +27,11 @@
           color: gray;
         }
       }
-      &__active {
-        a {
-          color: #000;
-          text-decoration: none;
-          padding-left: 18px;
-        }
-      }
+    }
+
+    .active {
+      font-weight: 600;
+      color: green !important;
     }
   }
 }

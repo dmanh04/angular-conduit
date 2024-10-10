@@ -20,6 +20,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./register/register.component').then((c) => c.RegisterComponent),
     title: 'Sign up - Conduit',
+    canMatch: [nonAuthGuard],
   },
   {
     path: 'editor',
@@ -28,5 +29,6 @@ export const routes: Routes = [
         (c) => c.ArticleEditorComponent,
       ),
     title: 'Editor - Conduit',
+    canMatch: [authGuard],
   },
 ];

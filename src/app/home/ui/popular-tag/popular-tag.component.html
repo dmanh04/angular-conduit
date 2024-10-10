@@ -4,8 +4,8 @@
     @for (item of (popularTagsStore.getTags$ | async); track $index) {
         <span class="side-bar__list-tag__tag-default">{{item.name}}</span>
     }
-    @if((popularTagsStore.isTagEmpty$ | async) === true){
+    @empty {
       <span>No tag in the list</span>
-    } 
+    }
   </div>
 </div>

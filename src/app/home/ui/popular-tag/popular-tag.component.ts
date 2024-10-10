@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { provideComponentStore } from '@ngrx/component-store';
 import { PopularTagStore } from './popular-tag.store';
 import { AsyncPipe } from '@angular/common';
@@ -10,6 +10,7 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './popular-tag.component.html',
   styleUrl: './popular-tag.component.scss',
   providers: [provideComponentStore(PopularTagStore)],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopularTagComponent implements OnInit{
   readonly popularTagsStore = inject(PopularTagStore);

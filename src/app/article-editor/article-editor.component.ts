@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,8 +9,7 @@ import { provideComponentStore } from '@ngrx/component-store';
 import { ArticleEditorStore } from './article-editor.store';
 import { FormErrorComponent } from '../shared/ui/form-error/form-error.component';
 import { AsyncPipe } from '@angular/common';
-import { TagSelectorsComponent } from '../home/ui/popular-tag/ui/tag-selectors/tag-selectors.component';
-
+import { TagSelectorsComponent } from './ui/tag-selectors/tag-selectors.component';
 
 @Component({
   selector: 'app-article-editor',
@@ -24,9 +23,11 @@ import { TagSelectorsComponent } from '../home/ui/popular-tag/ui/tag-selectors/t
   templateUrl: './article-editor.component.html',
   styleUrl: './article-editor.component.scss',
   providers: [provideComponentStore(ArticleEditorStore)],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleEditorComponent implements OnInit {
   showAlert = false;
+  readonly articleEditorStore = inject(ArticleEditorStore);
 
   ngOnInit(): void {
     this.articleEditorStore.isSuccess$.subscribe((value) => {
@@ -40,9 +41,8 @@ export class ArticleEditorComponent implements OnInit {
       }, 2000);
     });
   }
-  readonly articleEditorStore = inject(ArticleEditorStore);
 
-  articleForm = new FormGroup({
+  readonly articleForm = new FormGroup({
     title: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],

@@ -1,23 +1,15 @@
 <header class="header">
   <a routerLink="/" class="logo"> conduit </a>
-
-  @if ((authStore.selectIsAuthenticated$ | async) === true) {
-    <ul class="nav-bar">
-      @for (item of menuAuth; track $index) {
-        <li class="nav-item__active">
-          <a routerLink="{{ item.url }}">{{ item.title }}</a>
-        </li>
-      }
-      <li class="nav-item">{{ username$ | async }}</li>
-      <li class="nav-item logout" (click)="logout()">Logout</li>
-    </ul>
-  } @else {
-    <ul class="nav-bar">
-      @for (item of menuNonAuth; track $index) {
-        <li class="nav-item__active">
-          <a routerLink="{{ item.url }}">{{ item.title }}</a>
-        </li>
-      }
-    </ul>
-  }
+  <ul class="nav-bar">
+    @for (item of menu; track $index) {
+      <li class="nav-item" *appAuthMenu="item.isAuth">
+        <a
+          routerLink="{{ item.url }}"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ item.title }}</a
+        >
+      </li>
+    }
+  </ul>
 </header>

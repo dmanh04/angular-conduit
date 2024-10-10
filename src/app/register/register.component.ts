@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -18,6 +18,7 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   providers: [provideComponentStore(RegisterStore)],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
   readonly registerStore = inject(RegisterStore);

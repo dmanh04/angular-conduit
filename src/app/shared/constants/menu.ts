@@ -1,9 +1,9 @@
 export interface Menu {
   url: string;
   title: string;
-  // isAuth: boolean;
+  isAuth?: boolean;
 }
-export const MENU_NON_AUTH: Menu[] = [
+export const MENU: Menu[] = [
   {
     url: '/',
     title: 'Home',
@@ -11,20 +11,21 @@ export const MENU_NON_AUTH: Menu[] = [
   {
     url: '/login',
     title: 'Sign in',
+    isAuth: false,
   },
   {
     url: '/register',
     title: 'Sign up',
-  },
-];
-
-export const MENU_AUTH: Menu[] = [
-  {
-    url: '/',
-    title: 'Home',
+    isAuth: false,
   },
   {
     url: '/editor',
     title: 'New article',
+    isAuth: true,
+  },
+  {
+    url: '/setting',
+    title: 'Setting',
+    isAuth: true,
   },
 ];

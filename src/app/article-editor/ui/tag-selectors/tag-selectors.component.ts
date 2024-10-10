@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   ControlValueAccessor,
   FormsModule,
@@ -18,6 +18,7 @@ import {
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagSelectorsComponent implements ControlValueAccessor {
   tags: string[] = [];
@@ -48,11 +49,13 @@ export class TagSelectorsComponent implements ControlValueAccessor {
     }
     this.tags = [...this.tags, value];
     this.onChanged(this.tags);
+    this.onTouched(); 
     htmlInput.value = '';
   }
 
   removeTag(value: string) {
     this.tags = this.tags.filter((item) => item !== value);
     this.onChanged(this.tags);
+    this.onTouched();
   }
 }

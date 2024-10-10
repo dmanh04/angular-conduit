@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,6 +20,7 @@ import { FormErrorComponent } from '../shared/ui/form-error/form-error.component
   providers: [
     provideComponentStore(LoginStore),
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   readonly loginStore = inject(LoginStore);

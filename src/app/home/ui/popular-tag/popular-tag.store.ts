@@ -26,15 +26,16 @@ export class PopularTagStore
 {
   readonly #tagService = inject(TagService);
 
-  ngrxOnStoreInit() {
-    this.setState(initPopularTagState);
-  }
-
   readonly getTags$ = this.select((state) => state.tags);
 
   readonly isTagEmpty$ = this.select((state) => state.tags).pipe(
     map((res) => res.length === 0),
   );
+
+
+  ngrxOnStoreInit() {
+    this.setState(initPopularTagState);
+  }
 
   readonly getAllTags = this.effect<void>(
     switchMap(() => {
