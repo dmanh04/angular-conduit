@@ -1,5 +1,10 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -7,10 +12,9 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [AsyncPipe],
   templateUrl: './form-error.component.html',
-  styleUrl: './form-error.component.scss'
+  styleUrl: './form-error.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormErrorComponent{
-  
-  @Input({required: true}) errorStoreMessage$!: Observable<string[]>;
-
+export class FormErrorComponent {
+  @Input({ required: true }) errorStoreMessage$!: Observable<string[]>;
 }

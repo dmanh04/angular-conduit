@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
 import { LoginStore } from './login.store';
 import { provideComponentStore } from '@ngrx/component-store';
 import { AsyncPipe } from '@angular/common';
-import { ErrorStore } from '../shared/store';
 import { FormErrorComponent } from '../shared/ui/form-error/form-error.component';
 
 @Component({
@@ -20,8 +19,8 @@ import { FormErrorComponent } from '../shared/ui/form-error/form-error.component
   styleUrl: './login.component.scss',
   providers: [
     provideComponentStore(LoginStore),
-    provideComponentStore(ErrorStore),
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   readonly loginStore = inject(LoginStore);
@@ -40,8 +39,7 @@ export class LoginComponent {
   login() {
     if (this.loginForm.invalid) {
       return;
-    } else {
-      this.loginStore.login(this.loginForm.getRawValue());
     }
+    this.loginStore.login(this.loginForm.getRawValue());
   }
 }

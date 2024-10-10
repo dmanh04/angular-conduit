@@ -1,16 +1,11 @@
-
-    <div class="side-bar">
-        <p class="side-bar__popular-tag">Popular Tags</p>
-        <div class="side-bar__list-tag">
-            <span class="side-bar__list-tag__tag-default">eos</span>
-            <span class="side-bar__list-tag__tag-default">ipsum</span>
-            <span class="side-bar__list-tag__tag-default">est</span>
-            <span class="side-bar__list-tag__tag-default">enim</span>
-            <span class="side-bar__list-tag__tag-default">repellat</span>
-            <span class="side-bar__list-tag__tag-default">exercitationem</span>
-            <span class="side-bar__list-tag__tag-default">quia</span>
-            <span class="side-bar__list-tag__tag-default">consequatur</span>
-            <span class="side-bar__list-tag__tag-default">facillis</span>
-            <span class="side-bar__list-tag__tag-default">tenetur</span>
-        </div>
-    </div>
+<div class="side-bar">
+  <p class="side-bar__popular-tag">Popular Tags</p>
+  <div class="side-bar__list-tag">
+    @for (item of (popularTagsStore.getTags$ | async); track $index) {
+        <span class="side-bar__list-tag__tag-default">{{item.name}}</span>
+    }
+    @empty {
+      <span>No tag in the list</span>
+    }
+  </div>
+</div>

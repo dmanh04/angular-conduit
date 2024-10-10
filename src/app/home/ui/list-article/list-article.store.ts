@@ -5,8 +5,8 @@ import {
   BaseResponse,
   PageReponse,
 } from '../../../shared/models';
-import { inject, Injectable, Signal } from '@angular/core';
-import { exhaustMap, switchMap } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { switchMap } from 'rxjs';
 import { ArticleSerice, GetArticleQueryParams } from '../../../shared/services';
 
 interface ArticleState {
