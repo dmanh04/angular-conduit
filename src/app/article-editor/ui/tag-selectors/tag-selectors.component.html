@@ -1,4 +1,4 @@
-<input type="text" (keyup.enter)="addTag($event)" placeholder="Enter tags" />
+<input type="text"  (blur)="onTouched()" (keyup.enter)="addTag($event)" placeholder="Enter tags" />
 <div class="list-tag">
   @for (item of tags; track $index) {
     <span class="tag" (click)="removeTag(item)">{{ item }}</span>

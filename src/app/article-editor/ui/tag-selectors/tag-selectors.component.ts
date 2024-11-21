@@ -18,7 +18,7 @@ import {
       multi: true,
     },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TagSelectorsComponent implements ControlValueAccessor {
   tags: string[] = [];
@@ -49,13 +49,11 @@ export class TagSelectorsComponent implements ControlValueAccessor {
     }
     this.tags = [...this.tags, value];
     this.onChanged(this.tags);
-    this.onTouched(); 
     htmlInput.value = '';
   }
 
   removeTag(value: string) {
     this.tags = this.tags.filter((item) => item !== value);
     this.onChanged(this.tags);
-    this.onTouched();
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,6 +10,7 @@ import { ArticleEditorStore } from './article-editor.store';
 import { FormErrorComponent } from '../shared/ui/form-error/form-error.component';
 import { AsyncPipe } from '@angular/common';
 import { TagSelectorsComponent } from './ui/tag-selectors/tag-selectors.component';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-article-editor',
@@ -28,12 +29,19 @@ import { TagSelectorsComponent } from './ui/tag-selectors/tag-selectors.componen
 export class ArticleEditorComponent implements OnInit {
   showAlert = false;
   readonly articleEditorStore = inject(ArticleEditorStore);
+  readonly destroy$ = new Subject<void>();
+  readonly #cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
-    this.articleEditorStore.isSuccess$.subscribe((value) => {
+    this.articleEditorStore.isSuccess$
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe((value) => {
       if (value === true) {
         this.articleForm.reset();
         this.showAlert = true;
+        this.#cdr.markForCheck();
       }
 
       setTimeout(() => {
@@ -63,5 +71,10 @@ export class ArticleEditorComponent implements OnInit {
       return;
     }
     this.articleEditorStore.addArticle(this.articleForm.getRawValue());
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
