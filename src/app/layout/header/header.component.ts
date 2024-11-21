@@ -11,10 +11,8 @@ import { AuthMenuDirective } from '../../shared/directives';
   standalone: true,
   imports: [
     RouterLink,
-    AsyncPipe,
     RouterLinkActive,
-    NgClass,
-    AuthMenuDirective,
+    AuthMenuDirective
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
