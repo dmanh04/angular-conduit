@@ -46,6 +46,7 @@ export class ArticleEditorComponent implements OnInit {
 
       setTimeout(() => {
         this.showAlert = false;
+        this.#cdr.markForCheck();
       }, 2000);
     });
   }
