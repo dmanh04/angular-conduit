@@ -20,5 +20,15 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./register/register.component').then((c) => c.RegisterComponent),
     title: 'Sign up - Conduit',
+    canMatch: [nonAuthGuard],
+  },
+  {
+    path: 'editor',
+    loadComponent: () =>
+      import('./article-editor/article-editor.component').then(
+        (c) => c.ArticleEditorComponent,
+      ),
+    title: 'Editor - Conduit',
+    canMatch: [authGuard],
   },
 ];

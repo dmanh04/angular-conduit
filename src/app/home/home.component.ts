@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import {BannerComponent} from './ui/banner/banner.component'
 
@@ -16,7 +16,8 @@ import {FooterComponent} from '../layout/footer/footer.component'
     ,FooterComponent
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
 

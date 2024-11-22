@@ -7,8 +7,6 @@ import { exhaustMap, map } from 'rxjs';
 import {
   AuthResponse,
   BaseResponse,
-  ErrorResponse,
-  UserResponse,
 } from '../shared/models';
 import { AuthStore } from '../shared/store';
 import { Router } from '@angular/router';

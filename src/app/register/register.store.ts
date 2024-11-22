@@ -51,10 +51,9 @@ export class RegisterStore
           next: (res: BaseResponse<CurrentUser>) => {
             this.#router.navigate(['/login']);
           },
-          error: (error: HttpErrorResponse) => {
-            const baseErrorr: ErrorResponse = error.error;
+          error: (errorRes: HttpErrorResponse) => {
             this.patchState({
-              error: baseErrorr.messages,
+              error:  errorRes.error.messages,
             });
           },
           finalize: () => {

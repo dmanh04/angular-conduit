@@ -15,7 +15,7 @@ export interface ArticleReposne {
 
 export interface ArticleRequest {
   title: string;
-  description: string;
+  description: string | null;
   body: string;
   tagList: string[];
 }

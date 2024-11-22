@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ArticleComponent } from '../article/article.component';
 import { FeedToggleComponent } from '../feed-toggle/feed-toggle.component';
 import { PopularTagComponent } from '../popular-tag/popular-tag.component';
@@ -6,7 +6,6 @@ import { ArticleReposne } from '../../../shared/models';
 import { provideComponentStore } from '@ngrx/component-store';
 import { ListArticleStore } from './list-article.store';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-article',
@@ -20,6 +19,7 @@ import { Observable } from 'rxjs';
   templateUrl: './list-article.component.html',
   styleUrl: './list-article.component.scss',
   providers: [provideComponentStore(ListArticleStore)],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListArticleComponent implements OnInit {
   readonly listArticleStore = inject(ListArticleStore);

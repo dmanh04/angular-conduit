@@ -68,7 +68,6 @@ export class AuthStore
         currentUser: null,
         isAuthenticated: false,
       });
-      console.log('oke');
       this.#localStorageService.removeItem(STORAGE_KEY.user);
       this.#localStorageService.removeItem(STORAGE_KEY.token);
       this.#router.navigate(['/login']);

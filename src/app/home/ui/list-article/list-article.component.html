@@ -1,5 +1,9 @@
-@if ((listArticleStore.getLoading$ | async) == true) {
-  dang xoay
+@if (listArticleStore.getLoading$ | async) {
+  <div class="content">
+    <div  class="loading-overlay">
+      <div class="spinner"></div>
+    </div>
+  </div>
 } @else {
   <div class="list-article">
     <div class="row">
