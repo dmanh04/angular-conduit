@@ -1,24 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import {BannerComponent} from './ui/banner/banner.component'
+import { BannerComponent } from './ui/banner/banner.component';
 
-import {ListArticleComponent} from './ui/list-article/list-article.component'
-
-import {PaginationComponent} from './ui/pagination/pagination.component'
-
-import {HeaderComponent} from '../layout/header/header.component'
-import {FooterComponent} from '../layout/footer/footer.component'
+import { ListArticleComponent } from './ui/list-article/list-article.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent,BannerComponent, ListArticleComponent, PaginationComponent
-    ,FooterComponent
-  ],
+  imports: [BannerComponent, ListArticleComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}

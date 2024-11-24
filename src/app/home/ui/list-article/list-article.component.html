@@ -1,6 +1,6 @@
 @if (listArticleStore.getLoading$ | async) {
   <div class="content">
-    <div  class="loading-overlay">
+    <div class="loading-overlay">
       <div class="spinner"></div>
     </div>
   </div>
@@ -12,6 +12,13 @@
         <app-article
           [listArticle]="this.listArticleStore.getArticles$"
         ></app-article>
+        <app-pagination
+          [page$]="this.listArticleStore.getPage$"
+          [size$]="this.listArticleStore.getSize$"
+          [totalPages$]="this.listArticleStore.getTotalPages$"
+          [totalElements$]="this.listArticleStore.getTotalElements$"
+          (changPage)="changePage($event)"
+        ></app-pagination>
       </div>
       <div class="col-md-3">
         <app-popular-tag></app-popular-tag>

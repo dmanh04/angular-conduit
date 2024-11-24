@@ -1,0 +1,16 @@
+<div class="pageable">
+  <ul class="pageable__pagination">
+    @for (
+      item of [].constructor(totalPages$ | async);
+      track $index;
+      let i = $index
+    ) {
+      <a
+        (click)="onChangPage(i + 1)"
+        class="pageable__pagination__page-item__page-link"
+        [ngClass]="{ active: (page$ | async) === i + 1 }"
+        >{{ i + 1 }}</a
+      >
+    }
+  </ul>
+</div>
