@@ -27,7 +27,7 @@ export class AuthMenuDirective {
     )
     .subscribe(isAuth => {
       if(!isAuthRequired){
-        this.ngIf.ngIf = isAuthRequired === undefined || isAuthRequired === isAuth;
+        this.ngIf.ngIf = true;
       }
       else{
         this.ngIf.ngIf = isAuth;
