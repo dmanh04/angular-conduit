@@ -26,13 +26,18 @@ export class AuthMenuDirective {
       takeUntil(this.destroy$)
     )
     .subscribe(isAuth => {
-      if(!isAuthRequired){
+      if(isAuthRequired === undefined){
         this.ngIf.ngIf = true;
       }
       else{
-        this.ngIf.ngIf = isAuth;
+        if(!isAuthRequired){
+          this.ngIf.ngIf = isAuthRequired === isAuth;
+        }
+        else{
+          this.ngIf.ngIf = isAuth;
+        }
       }
-    })
+    });
   }
 
   ngOnDestroy() {
