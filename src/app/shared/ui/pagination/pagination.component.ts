@@ -11,10 +11,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class PaginationComponent {
   
-  @Input({required: true}) page?: number;
-  @Input({required: true}) size?: number;
-  @Input({required: true}) totalPages?: number;
-  @Input({required: true}) totalElements?: number;
+  @Input({required: true}) page!: number;
+  @Input({required: true}) size!: number;
+  @Input({required: true}) totalPages!: number;
+  @Input({required: true}) totalElements!: number;
   @Output() changPage = new EventEmitter<number>();
 
   onChangPage(pageChange: number){
