@@ -13,7 +13,7 @@ import { NgIf } from '@angular/common';
 @Directive({
   selector: '[appAuthMenu]',
   standalone: true,
-  hostDirectives: [NgIf]
+  hostDirectives: [NgIf],
 })
 export class AuthMenuDirective {
   private authStore = inject(AuthStore);
@@ -22,22 +22,14 @@ export class AuthMenuDirective {
 
   @Input() set appAuthMenu(isAuthRequired: boolean | undefined) {
     this.authStore.selectIsAuthenticated$
-    .pipe(
-      takeUntil(this.destroy$)
-    )
-    .subscribe(isAuth => {
-      if(isAuthRequired === undefined){
-        this.ngIf.ngIf = true;
-      }
-      else{
-        if(!isAuthRequired){
-          this.ngIf.ngIf = isAuthRequired === isAuth;
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isAuth) => {
+        if (isAuthRequired === undefined) {
+          this.ngIf.ngIf = true;
+        } else {
+          this.ngIf.ngIf = isAuthRequired ? isAuth : isAuthRequired === isAuth;
         }
-        else{
-          this.ngIf.ngIf = isAuth;
-        }
-      }
-    });
+      });
   }
 
   ngOnDestroy() {

@@ -13,10 +13,10 @@
           [listArticle]="this.listArticleStore.getArticles$"
         ></app-article>
         <app-pagination
-          [page$]="this.listArticleStore.getPage$"
-          [size$]="this.listArticleStore.getSize$"
-          [totalPages$]="this.listArticleStore.getTotalPages$"
-          [totalElements$]="this.listArticleStore.getTotalElements$"
+          [page]="(this.listArticleStore.getPage$ | async)!"
+          [size]="(this.listArticleStore.getSize$ | async)!"
+          [totalPages]="(this.listArticleStore.getTotalPages$ | async)!"
+          [totalElements]="(this.listArticleStore.getTotalElements$ | async)!"
           (changPage)="changePage($event)"
         ></app-pagination>
       </div>
