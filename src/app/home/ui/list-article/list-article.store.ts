@@ -8,6 +8,7 @@ import {
 import { inject, Injectable } from '@angular/core';
 import { switchMap } from 'rxjs';
 import { ArticleSerice, GetArticleQueryParams } from '../../../shared/services';
+import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from '../../../shared/constants';
 
 interface ArticleState {
   articles: ArticleReposne[];
@@ -23,8 +24,8 @@ const initArticleState: ArticleState = {
   isLoading: false,
   totalPages: 0,
   totalElements: 0,
-  page: 1,
-  size: 10,
+  page: DEFAULT_PAGE_INDEX,
+  size: DEFAULT_PAGE_SIZE,
 };
 
 @Injectable()
@@ -37,6 +38,14 @@ export class ListArticleStore
   ngrxOnStoreInit() {
     this.setState(initArticleState);
   }
+
+  readonly getPage$ = this.select((state) => state.page);
+
+  readonly getSize$ = this.select((state) => state.size);
+
+  readonly getTotalPages$ = this.select(state => state.totalPages);
+
+  readonly getTotalElements$ = this.select(state => state.totalElements);
 
   readonly getArticles$ = this.select((state) => {
     return state.articles;
@@ -54,6 +63,7 @@ export class ListArticleStore
       return this.#articleService.findAllArticleByFilter(params).pipe(
         tapResponse({
           next: (res: BaseResponse<PageReponse<ArticleReposne>>) => {
+            debugger;
             this.patchState({
               articles: res.data.items,
               page: res.data.page,
