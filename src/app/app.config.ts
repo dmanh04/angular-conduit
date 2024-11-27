@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import {
@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import {
   apiAuthInterceptor,
   apiPrefixInterceptor,
+  handleErrorInterceptor,
 } from './shared/interceptors';
 import { provideComponentStore } from '@ngrx/component-store';
 import { AuthStore } from './shared/store';
@@ -20,12 +21,16 @@ import { AuthStore } from './shared/store';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(
       withFetch(),
-      withInterceptors([apiPrefixInterceptor, apiAuthInterceptor])
+      withInterceptors([
+        apiPrefixInterceptor,
+        apiAuthInterceptor,
+        handleErrorInterceptor,
+      ]),
     ),
     provideEnvironmentConfig(environment),
-    provideComponentStore(AuthStore)
+    provideComponentStore(AuthStore),
   ],
 };

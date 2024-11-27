@@ -14,7 +14,7 @@
         {{ item.favorited }}
       </button>
     </div>
-    <div class="article__preview-link">
+    <div class="article__preview-link" (click)="navigateToArticleDetail(item.slug)">
       <h1 class="article__preview-link__title">{{ item.title }}</h1>
       <p class="article__preview-link__desc">
         {{ item.description }}

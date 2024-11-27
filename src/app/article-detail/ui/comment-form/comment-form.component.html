@@ -1,0 +1,22 @@
+<form class="card comment-form" [formGroup]="commentForm" (ngSubmit)="submit()">
+  <div class="card-block">
+    <textarea
+      class="form-control"
+      placeholder="Write a comment..."
+      rows="3"
+      formControlName="comment"
+    ></textarea>
+      @if(this.commentForm.controls.comment.hasError('required') && this.commentForm.controls.comment.dirty){
+        <p class="error">Comment must be required</p>
+      }
+      @if(this.commentForm.controls.comment.hasError('minlength') && this.commentForm.controls.comment.dirty){
+        <p class="error">Character of comment must be more than 5</p>
+      }
+  </div>
+  <div class="card-footer">
+    <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+    <button class="btn btn-sm btn-primary" type="submit"
+      [disabled]="this.commentForm.invalid"
+    >Post Comment</button>
+  </div>
+</form>

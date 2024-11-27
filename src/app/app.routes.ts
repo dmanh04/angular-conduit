@@ -9,6 +9,26 @@ export const routes: Routes = [
     title: 'Home',
   },
   {
+    path: 'article',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./home/home.component').then((c) => c.HomeComponent),
+        title: 'Article',
+      },
+      {
+        path: ':slug',
+        loadComponent: () =>
+          import('./article-detail/article-detail.component').then(
+            (c) => c.ArticleDetailComponent,
+          ),
+
+        title: 'Article Detail',
+      },
+    ],
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./login/login.component').then((c) => c.LoginComponent),

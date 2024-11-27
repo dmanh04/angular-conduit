@@ -1,0 +1,166 @@
+@if (this.articleDetailStore.isNotFound$ | async) {
+  <div>
+    <p>Not found</p>
+  </div>
+} @else {
+  <div class="article-page">
+    <div class="banner">
+      <div class="container">
+        <h1>{{ (this.articleDetailStore.articleResponse$ | async)?.title }}</h1>
+        <div class="article-meta">
+          <a href="/profile/eric-simons"
+            ><img src="http://i.imgur.com/Qr71crq.jpg"
+          /></a>
+          <div class="info">
+            <a href="/profile/eric-simons" class="author">{{
+              (this.articleDetailStore.articleResponse$ | async)?.author
+                ?.username
+            }}</a>
+            <span class="date">{{
+              (this.articleDetailStore.articleResponse$ | async)?.createdAt
+                | date: "mediumDate"
+            }}</span>
+          </div>
+          @if (
+            !(this.articleDetailStore.articleResponse$ | async)?.author
+              ?.following
+          ) {
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="followAuthor()"
+            >
+              <i class="ion-plus-round"></i>
+              &nbsp; Follow
+              {{
+                (this.articleDetailStore.articleResponse$ | async)?.author
+                  ?.username
+              }}
+            </button>
+          } @else {
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="unfollowAuthor()"
+            >
+              <i class="ion-plus-round"></i>
+              &nbsp; Unfollow
+              {{
+                (this.articleDetailStore.articleResponse$ | async)?.author
+                  ?.username
+              }}
+            </button>
+          }
+          &nbsp;&nbsp;
+          <button
+            class="btn btn-sm btn-outline-primary"
+            (click)="favoritedArticle()"
+          >
+            <i class="ion-heart"></i>
+            &nbsp; Favorite Post
+            <span class="counter"
+              >({{
+                (this.articleDetailStore.articleResponse$ | async)
+                  ?.favoritesCount
+              }})</span
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container page">
+      <div class="row article-content">
+        <div class="col-md-12">
+          <h2 id="introducing-ionic">
+            {{ (this.articleDetailStore.articleResponse$ | async)?.title }}
+          </h2>
+          <p style="margin: 30px 0px">
+            {{ (this.articleDetailStore.articleResponse$ | async)?.body }}
+          </p>
+          <p>It's a great solution for learning how other frameworks work.</p>
+          <ul class="tag-list" style="margin: 30px 0px">
+            @for (
+              item of (this.articleDetailStore.articleResponse$ | async)
+                ?.tagList;
+              track $index
+            ) {
+              <li class="tag-default tag-pill tag-outline">{{ item }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="article-actions">
+        <div class="article-meta">
+          <a href="/profile/eric-simons"
+            ><img src="http://i.imgur.com/Qr71crq.jpg"
+          /></a>
+          <div class="info">
+            <a href="/profile/eric-simons" class="author">{{
+              (this.articleDetailStore.articleResponse$ | async)?.author
+                ?.username
+            }}</a>
+            <span class="date">{{
+              (this.articleDetailStore.articleResponse$ | async)?.createdAt
+                | date: "mediumDate"
+            }}</span>
+          </div>
+          @if (
+            !(this.articleDetailStore.articleResponse$ | async)?.author
+              ?.following
+          ) {
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="followAuthor()"
+            >
+              <i class="ion-plus-round"></i>
+              &nbsp; Follow
+              {{
+                (this.articleDetailStore.articleResponse$ | async)?.author
+                  ?.username
+              }}
+            </button>
+          } @else {
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="unfollowAuthor()"
+            >
+              <i class="ion-plus-round"></i>
+              &nbsp; Unfollow
+              {{
+                (this.articleDetailStore.articleResponse$ | async)?.author
+                  ?.username
+              }}
+            </button>
+          }
+          &nbsp;&nbsp;
+          <button
+            class="btn btn-sm btn-outline-primary"
+            (click)="favoritedArticle()"
+          >
+            <i class="ion-heart"></i>
+            &nbsp; Favorite Post
+            <span class="counter"
+              >({{
+                (this.articleDetailStore.articleResponse$ | async)
+                  ?.favoritesCount
+              }})</span
+            >
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-md-8 offset-md-2">
+          <app-comment-form
+            [slug]="(this.articleDetailStore.articleResponse$ | async)?.slug"
+          ></app-comment-form>
+          <app-comment-list
+            [comments]="(this.articleDetailStore.commentReponse$ | async)!"
+          ></app-comment-list>
+        </div>
+      </div>
+    </div>
+  </div>
+}
