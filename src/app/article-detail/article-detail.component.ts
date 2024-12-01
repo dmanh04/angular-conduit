@@ -10,6 +10,7 @@ import { ArticleDetailStore } from './article-detail.store';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { CommentFormComponent } from './ui/comment-form/comment-form.component';
 import { CommentListComponent } from './ui/comment-list/comment-list.component';
+import { ArticleReposne } from '../shared/models';
 
 @Component({
   selector: 'app-article-detail',
@@ -20,37 +21,20 @@ import { CommentListComponent } from './ui/comment-list/comment-list.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideComponentStore(ArticleDetailStore)],
 })
-export class ArticleDetailComponent implements OnInit {
-  @Input() slug: string = '';
+export class ArticleDetailComponent {
+  @Input() set slug(value: string) {
+    this.articleDetailStore.getArticleBySlug(value);
+    this.articleDetailStore.getCommentByAricle(value);
+  }
 
   readonly articleDetailStore = inject(ArticleDetailStore);
 
-  ngOnInit(): void {
-    this.articleDetailStore.getArticleBySlug(this.slug);
-    this.articleDetailStore.getCommentByAricle(this.slug);
+  toggleFollowAuthor(articleResponse: ArticleReposne) {
+    this.articleDetailStore.toggleFollowAuthor(articleResponse);
   }
 
-  followAuthor() {
-    this.articleDetailStore.followAuthor(
-      this.articleDetailStore.articleResponse$,
-    );
+  toggleFavoritedArticle(articleResponse: ArticleReposne) {
+    this.articleDetailStore.togglefavoriteArticle(articleResponse);
   }
 
-  unfollowAuthor() {
-    this.articleDetailStore.unfollowAuthor(
-      this.articleDetailStore.articleResponse$,
-    );
-  }
-
-  favoritedArticle() {
-    this.articleDetailStore.favoriteArticle(
-      this.articleDetailStore.articleResponse$,
-    );
-  }
-
-  unfavoritedArticle() {
-    this.articleDetailStore.favoriteArticle(
-      this.articleDetailStore.articleResponse$,
-    );
-  }
 }

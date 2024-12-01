@@ -2,7 +2,7 @@ import { ComponentStore, OnStoreInit } from '@ngrx/component-store';
 import { ArticleReposne, CommentResponse } from '../shared/models';
 import { inject, Injectable } from '@angular/core';
 
-import { exhaustMap, Observable, switchMap, take } from 'rxjs';
+import { defer, exhaustMap, Observable, switchMap } from 'rxjs';
 import { tapResponse } from '@ngrx/operators';
 import {
   ArticleSerice,
@@ -125,12 +125,17 @@ export class ArticleDetailStore
     }),
   );
 
-  readonly followAuthor = this.effect(
+  readonly toggleFollowAuthor = this.effect(
     (follow$: Observable<ArticleReposne | null>) => {
       return follow$.pipe(
-        take(1),
         exhaustMap((req) => {
-          return this.#profileService.followProfile(req!.author.username).pipe(
+          return defer(() => {
+            if (req!.author.following) {
+              return this.#profileService.unfollowProfile(req!.author.username);
+            } else {
+              return this.#profileService.followProfile(req!.author.username);
+            }
+          }).pipe(
             tapResponse({
               next: () => {
                 this.getArticleBySlug(req!.slug);
@@ -145,69 +150,28 @@ export class ArticleDetailStore
     },
   );
 
-  readonly unfollowAuthor = this.effect(
-    (follow$: Observable<ArticleReposne | null>) => {
-      return follow$.pipe(
-        take(1),
+  readonly togglefavoriteArticle = this.effect(
+    (favorited$: Observable<ArticleReposne | null>) => {
+      return favorited$.pipe(
         exhaustMap((req) => {
-          return this.#profileService
-            .unfollowProfile(req!.author.username)
-            .pipe(
-              tapResponse({
-                next: () => {
-                  this.getArticleBySlug(req!.slug);
-                },
-                error: (error) => {
-                  console.log(error);
-                },
-              }),
-            );
+          return defer(() => {
+            if (req?.favorited) {
+              return this.#favoriteService.unFavorite(req!.slug);
+            } else {
+              return this.#favoriteService.addFavorite(req!.slug);
+            }
+          }).pipe(
+            tapResponse({
+              next: () => {
+                this.getArticleBySlug(req!.slug);
+              },
+              error: (error) => {
+                console.log(error);
+              },
+            }),
+          );
         }),
       );
     },
   );
-
-  readonly favoriteArticle = this.effect(
-    (favorited$: Observable<ArticleReposne | null>) => {
-      return favorited$.pipe(
-        take(1),
-        exhaustMap((req) => {
-          return this.#favoriteService
-            .addFavorite(req!.slug)
-            .pipe(
-              tapResponse({
-                next: () => {
-                  this.getArticleBySlug(req!.slug);
-                },
-                error: (error) => {
-                  console.log(error);
-                },
-              }),
-            );
-        }),
-      );
-    },
-  )
-
-  readonly unfavoriteArticle = this.effect(
-    (favorited$: Observable<ArticleReposne | null>) => {
-      return favorited$.pipe(
-        take(1),
-        exhaustMap((req) => {
-          return this.#favoriteService
-            .unFavorite(req!.slug)
-            .pipe(
-              tapResponse({
-                next: () => {
-                  this.getArticleBySlug(req!.slug);
-                },
-                error: (error) => {
-                  console.log(error);
-                },
-              }),
-            );
-        }),
-      );
-    },
-  )
 }

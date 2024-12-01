@@ -38,14 +38,13 @@ export class CommentFormComponent {
         c.markAsDirty();
       });
       return;
-    } else {
-      this.articleDetailStore.createComment({
-        slug: this.slug!,
-        comment: {
-          body: this.commentForm.controls.comment.value,
-        },
-      });
-      this.commentForm.reset();
     }
+    this.articleDetailStore.createComment({
+      slug: this.slug!,
+      comment: {
+        body: this.commentForm.controls.comment.value,
+      },
+    });
+    this.commentForm.reset();
   }
 }
