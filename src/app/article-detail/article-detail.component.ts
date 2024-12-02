@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { provideComponentStore } from '@ngrx/component-store';
 import { ArticleDetailStore } from './article-detail.store';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
 import { CommentFormComponent } from './ui/comment-form/comment-form.component';
 import { CommentListComponent } from './ui/comment-list/comment-list.component';
 import { ArticleReposne } from '../shared/models';
@@ -15,7 +15,7 @@ import { ArticleReposne } from '../shared/models';
 @Component({
   selector: 'app-article-detail',
   standalone: true,
-  imports: [AsyncPipe, DatePipe, CommentFormComponent, CommentListComponent],
+  imports: [AsyncPipe, DatePipe, CommentFormComponent, CommentListComponent, NgClass],
   templateUrl: './article-detail.component.html',
   styleUrl: './article-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
