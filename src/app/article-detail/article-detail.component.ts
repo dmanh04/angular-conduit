@@ -11,11 +11,19 @@ import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
 import { CommentFormComponent } from './ui/comment-form/comment-form.component';
 import { CommentListComponent } from './ui/comment-list/comment-list.component';
 import { ArticleReposne } from '../shared/models';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-article-detail',
   standalone: true,
-  imports: [AsyncPipe, DatePipe, CommentFormComponent, CommentListComponent, NgClass],
+  imports: [
+    AsyncPipe,
+    DatePipe,
+    CommentFormComponent,
+    CommentListComponent,
+    NgClass,
+    RouterLink,
+  ],
   templateUrl: './article-detail.component.html',
   styleUrl: './article-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,5 +44,4 @@ export class ArticleDetailComponent {
   toggleFavoritedArticle(articleResponse: ArticleReposne) {
     this.articleDetailStore.togglefavoriteArticle(articleResponse);
   }
-
 }
