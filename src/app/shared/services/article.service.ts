@@ -38,4 +38,8 @@ export class ArticleSerice {
   addArticle(newArticle: ArticleRequest): Observable<BaseResponse<ArticleReposne>>{
     return this.#http.post<BaseResponse<ArticleReposne>>('articles', newArticle);
   }
+
+  findArticleBySlug(slug: string): Observable<BaseResponse<ArticleReposne>> {
+    return this.#http.get<BaseResponse<ArticleReposne>>(`articles/${slug}`);
+  }
 }

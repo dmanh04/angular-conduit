@@ -1,0 +1,118 @@
+@if (this.articleDetailStore.isNotFound$ | async) {
+  <div>
+    <p>Not found</p>
+  </div>
+} @else {
+  <div class="article-page">
+    @if (this.articleDetailStore.articleResponse$ | async; as articleResponse) {
+      <div class="banner">
+        <div class="container">
+          <h1>{{ articleResponse?.title }}</h1>
+          <div class="article-meta">
+            <a routerLink="/profile/eric-simons"
+              ><img src="http://i.imgur.com/Qr71crq.jpg"
+            /></a>
+            <div class="info">
+              <a routerLink="/profile/eric-simons" class="author">{{
+                articleResponse.author.username
+              }}</a>
+              <span class="date">{{
+                articleResponse.createdAt | date: "mediumDate"
+              }}</span>
+            </div>
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="toggleFollowAuthor(articleResponse)"
+              [ngClass]="articleResponse.author.following ? 'following' : 'unfollowing'"
+            >
+              <i class="ion-plus-round"></i>
+              &nbsp;
+              {{ articleResponse.author.following ? "Follow" : "Unfollow" }}
+              {{ articleResponse.author.username }}
+            </button>
+            &nbsp;&nbsp;
+            <button
+              class="btn btn-sm btn-outline-primary"
+              (click)="toggleFavoritedArticle(articleResponse)"
+              [ngClass]="articleResponse.favorited ? 'unfavorited' : 'favorited'"
+            >
+              <i class="ion-heart"></i>
+              &nbsp;  {{ articleResponse.favorited ? "Unfavorited" : "Favorited" }}
+              <span class="counter" 
+                >({{ articleResponse.favoritesCount }})</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="container page">
+        <div class="row article-content">
+          <div class="col-md-12">
+            <h2 id="introducing-ionic">
+              {{ articleResponse.title }}
+            </h2>
+            <p style="margin: 30px 0px">
+              {{ articleResponse.body }}
+            </p>
+            <p>It's a great solution for learning how other frameworks work.</p>
+            <ul class="tag-list" style="margin: 30px 0px">
+              @for (item of articleResponse.tagList; track $index) {
+                <li class="tag-default tag-pill tag-outline">{{ item }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="article-actions">
+          <div class="article-meta">
+            <a routerLink="/profile/eric-simons"
+              ><img src="http://i.imgur.com/Qr71crq.jpg"
+            /></a>
+            <div class="info">
+              <a routerLink="/profile/eric-simons" class="author">{{
+                articleResponse.author.username
+              }}</a>
+              <span class="date">{{
+                articleResponse.createdAt | date: "mediumDate"
+              }}</span>
+            </div>
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="toggleFollowAuthor(articleResponse)"
+              [ngClass]="articleResponse.author.following ? 'following' : 'unfollowing'"
+            >
+              <i class="ion-plus-round"></i>
+              &nbsp;
+              {{ articleResponse.author.following ? "Follow" : "Unfollow" }}
+              {{ articleResponse.author.username }}
+            </button>
+            &nbsp;&nbsp;
+            <button
+              class="btn btn-sm btn-outline-primary"
+              (click)="toggleFavoritedArticle(articleResponse)"
+              [ngClass]="articleResponse.favorited ? 'unfavorited' : 'favorited'"
+            >
+              <i class="ion-heart"></i>
+              &nbsp; {{ articleResponse.favorited ? "Unfavorited" : "Favorited" }}
+              <span class="counter"
+                >({{ articleResponse.favoritesCount }})</span
+              >
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-8 offset-md-2">
+            <app-comment-form [slug]="articleResponse?.slug"></app-comment-form>
+            <app-comment-list
+              [comments]="(this.articleDetailStore.commentReponse$ | async)!"
+            ></app-comment-list>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}
