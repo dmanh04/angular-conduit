@@ -63,7 +63,6 @@ export class ListArticleStore
       return this.#articleService.findAllArticleByFilter(params).pipe(
         tapResponse({
           next: (res: BaseResponse<PageReponse<ArticleReposne>>) => {
-            debugger;
             this.patchState({
               articles: res.data.items,
               page: res.data.page,
