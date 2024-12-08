@@ -34,6 +34,18 @@ export class ArticleSerice {
     );
   }
 
+  findAllArticleByFilterFavorites(
+    queryParams: GetArticleQueryParams,
+  ): Observable<BaseResponse<PageReponse<ArticleReposne>>> {
+    return this.#http.get<BaseResponse<PageReponse<ArticleReposne>>>(
+      'articles/favorites',
+      {
+        params: {
+          ...queryParams,
+        },
+      },
+    );
+  }
 
   addArticle(newArticle: ArticleRequest): Observable<BaseResponse<ArticleReposne>>{
     return this.#http.post<BaseResponse<ArticleReposne>>('articles', newArticle);
