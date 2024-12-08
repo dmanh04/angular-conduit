@@ -1,29 +1,18 @@
 import { ComponentStore, OnStoreInit } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
-import { ArticleReposne, ProfileResponse } from '../shared/models';
+import { ProfileResponse } from '../shared/models';
 import { inject, Injectable } from '@angular/core';
 import { defer, exhaustMap, switchMap } from 'rxjs';
-import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from '../shared/constants';
 import { ProfileSerivce } from '../shared/services';
 
 interface ProfileState {
   isNotFound: boolean;
   profile: ProfileResponse | null;
-  articles: ArticleReposne[];
-  totalPages: number;
-  totalElements: number;
-  page: number;
-  size: number;
 }
 
 const initProfileState: ProfileState = {
   isNotFound: false,
   profile: null,
-  articles: [],
-  totalPages: 0,
-  totalElements: 0,
-  page: DEFAULT_PAGE_INDEX,
-  size: DEFAULT_PAGE_SIZE,
 };
 
 @Injectable()

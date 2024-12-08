@@ -28,11 +28,6 @@ export class ProfileComponent {
 
   @Input() set username(value: string) {
     this.profileStore.getProfileByUsername(value);
-    const params: GetArticleQueryParams = {
-      author: value,
-      page: DEFAULT_PAGE_INDEX,
-      size: DEFAULT_PAGE_SIZE,
-    };
   }
 
   toogleFollow(profile: ProfileResponse | null) {
