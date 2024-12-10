@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { ArticleReposne } from '../../../shared/models';
 import { ARTICLE_TYPE, ArticleType } from './profile-article-list.di';
 import {
@@ -51,6 +51,8 @@ export class ProfileArticleListStore
   }
 
   readonly page$ = this.select((state) => state.page);
+
+  readonly currentPage = computed(() => this.state().page);
 
   readonly size$ = this.select((state) => state.size);
 

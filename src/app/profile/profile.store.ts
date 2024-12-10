@@ -53,10 +53,10 @@ export class ProfileStore
   readonly toggleFollow = this.effect<ProfileResponse>(
     exhaustMap((req) => {
       return defer(() => {
-        if (req!.following) {
-          return this.#profileService.unfollowProfile(req!.username);
+        if (req.following) {
+          return this.#profileService.unfollowProfile(req.username);
         } else {
-          return this.#profileService.followProfile(req!.username);
+          return this.#profileService.followProfile(req.username);
         }
       }).pipe(
         tapResponse({

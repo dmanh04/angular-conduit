@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ARTICLE_TYPE, injectArticleType } from './profile-article-list.di';
@@ -16,7 +15,6 @@ import {
 import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
 import { PaginationComponent } from '../../../shared/ui/pagination/pagination.component';
 import { ArticleReposne } from '../../../shared/models';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile-article-list',
@@ -27,12 +25,8 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideComponentStore(ProfileArticleListStore)],
 })
-export class ProfileArticleListComponent implements OnInit, OnDestroy {
+export class ProfileArticleListComponent implements OnInit {
   username: string = '';
-
-  currenPage: number = DEFAULT_PAGE_INDEX;
-
-  private subcription!: Subscription;
 
   readonly #route = inject(ActivatedRoute);
 
@@ -41,17 +35,12 @@ export class ProfileArticleListComponent implements OnInit, OnDestroy {
   readonly profileArticleListStore = inject(ProfileArticleListStore);
 
   ngOnInit(): void {
-    // /profile/dmanh || /profile/dmanh/favorites => dmanh
     if (this.#articleType == ARTICLE_TYPE.MyArticle) {
       this.username = this.#route.snapshot.params['username'];
     } else {
       this.username = this.#route.snapshot.parent?.params['username'];
     }
     this.filter(DEFAULT_PAGE_INDEX);
-
-    this.subcription = this.profileArticleListStore.page$.subscribe((page) => {
-      this.currenPage = page;
-    });
   }
 
   changePage(page: number) {
@@ -64,7 +53,7 @@ export class ProfileArticleListComponent implements OnInit, OnDestroy {
       query: {
         query: {
           author: this.username,
-          page: this.currenPage,
+          page: this.profileArticleListStore.currentPage(),
           size: DEFAULT_PAGE_SIZE,
         },
         type: this.#articleType,
@@ -83,7 +72,4 @@ export class ProfileArticleListComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.subcription.unsubscribe();
-  }
 }
