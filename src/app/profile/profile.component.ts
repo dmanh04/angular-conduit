@@ -30,7 +30,7 @@ export class ProfileComponent {
     this.profileStore.getProfileByUsername(value);
   }
 
-  toogleFollow(profile: ProfileResponse | null) {
-    this.profileStore.toogleFollow(profile);
+  toggleFollow(profile: ProfileResponse) {
+    this.profileStore.toggleFollow(profile);
   }
 }

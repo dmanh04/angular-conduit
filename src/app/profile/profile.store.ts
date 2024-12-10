@@ -24,7 +24,7 @@ export class ProfileStore
 
   readonly isNotFound$ = this.select((state) => state.isNotFound);
 
-  readonly profile$ = this.select((state) => state.profile);
+  readonly profile$ = this.select((state) => state.profile!);
 
   ngrxOnStoreInit() {
     this.setState(initProfileState);
@@ -50,7 +50,7 @@ export class ProfileStore
     }),
   );
 
-  readonly toogleFollow = this.effect<ProfileResponse | null>(
+  readonly toggleFollow = this.effect<ProfileResponse>(
     exhaustMap((req) => {
       return defer(() => {
         if (req!.following) {

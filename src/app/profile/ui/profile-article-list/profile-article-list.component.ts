@@ -28,7 +28,6 @@ import { Subscription } from 'rxjs';
   providers: [provideComponentStore(ProfileArticleListStore)],
 })
 export class ProfileArticleListComponent implements OnInit, OnDestroy {
-
   username: string = '';
 
   currenPage: number = DEFAULT_PAGE_INDEX;

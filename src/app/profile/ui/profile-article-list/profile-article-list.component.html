@@ -1,4 +1,4 @@
-@for (item of profileArticleListStore.articles$ | async; track $index) {
+@for (item of profileArticleListStore.articles$ | async; track item.slug) {
   <div class="article-preview">
     <div class="article-meta">
       <a routerLink="/profile/{{ item.author.username }}"
