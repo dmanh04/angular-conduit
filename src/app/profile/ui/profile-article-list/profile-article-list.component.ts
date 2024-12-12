@@ -35,7 +35,7 @@ export class ProfileArticleListComponent implements OnInit {
   readonly profileArticleListStore = inject(ProfileArticleListStore);
 
   ngOnInit(): void {
-    if (this.#articleType == ARTICLE_TYPE.MyArticle) {
+    if (this.#articleType == ARTICLE_TYPE.MY_ARTICLE) {
       this.username = this.#route.snapshot.params['username'];
     } else {
       this.username = this.#route.snapshot.parent?.params['username'];
@@ -53,7 +53,7 @@ export class ProfileArticleListComponent implements OnInit {
       query: {
         query: {
           author: this.username,
-          page: this.profileArticleListStore.currentPage(),
+          page: this.profileArticleListStore.currentPage,
           size: DEFAULT_PAGE_SIZE,
         },
         type: this.#articleType,

@@ -1,9 +1,9 @@
 import { createInjectionToken, ObjectValues } from '../../../shared/utils';
 
-export const ARTICLE_TYPE = {
-  MyArticle: 'myArticle',
-  FavoritedArticle: 'favoritedArticle',
-} as const;
+export enum ARTICLE_TYPE {
+  MY_ARTICLE = 'myArticle',
+  FAVORITED_ARTICLE = 'favoritedArticle',
+};
 
 export type ArticleType = ObjectValues<typeof ARTICLE_TYPE>;
 

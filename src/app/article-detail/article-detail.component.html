@@ -7,7 +7,7 @@
     @if (this.articleDetailStore.articleResponse$ | async; as articleResponse) {
       <div class="banner">
         <div class="container">
-          <h1>{{ articleResponse?.title }}</h1>
+          <h1>{{ articleResponse.title }}</h1>
           <div class="article-meta">
             <a routerLink="/profile/{{ articleResponse.author.username }}"
               ><img src="http://i.imgur.com/Qr71crq.jpg"

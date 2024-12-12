@@ -1,4 +1,4 @@
-import { computed, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ArticleReposne } from '../../../shared/models';
 import { ARTICLE_TYPE, ArticleType } from './profile-article-list.di';
 import {
@@ -29,7 +29,7 @@ const initProfileArticleList: ProfileArticleList = {
   totalElements: 0,
   page: DEFAULT_PAGE_INDEX,
   size: DEFAULT_PAGE_SIZE,
-  articleType: ARTICLE_TYPE.MyArticle,
+  articleType: ARTICLE_TYPE.MY_ARTICLE,
 };
 
 export interface QueryArticleByAuthor {
@@ -50,9 +50,11 @@ export class ProfileArticleListStore
     this.setState(initProfileArticleList);
   }
 
-  readonly page$ = this.select((state) => state.page);
+  get currentPage() {
+    return this.get((s) => s.page);
+  }
 
-  readonly currentPage = computed(() => this.state().page);
+  readonly page$ = this.select((state) => state.page);
 
   readonly size$ = this.select((state) => state.size);
 
@@ -65,7 +67,7 @@ export class ProfileArticleListStore
   readonly getMyArticleByAuthor = this.effect<QueryArticleByAuthor>(
     switchMap((params) => {
       return defer(() => {
-        if (params.type === ARTICLE_TYPE.MyArticle) {
+        if (params.type === ARTICLE_TYPE.MY_ARTICLE) {
           return this.#articleService.findAllArticleByFilter(params.query);
         } else {
           return this.#articleService.findAllArticleByFilterFavorites(
