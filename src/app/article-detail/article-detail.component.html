@@ -7,15 +7,17 @@
     @if (this.articleDetailStore.articleResponse$ | async; as articleResponse) {
       <div class="banner">
         <div class="container">
-          <h1>{{ articleResponse?.title }}</h1>
+          <h1>{{ articleResponse.title }}</h1>
           <div class="article-meta">
-            <a routerLink="/profile/eric-simons"
+            <a routerLink="/profile/{{ articleResponse.author.username }}"
               ><img src="http://i.imgur.com/Qr71crq.jpg"
             /></a>
             <div class="info">
-              <a routerLink="/profile/eric-simons" class="author">{{
-                articleResponse.author.username
-              }}</a>
+              <a
+                routerLink="/profile/{{ articleResponse.author.username }}"
+                class="author"
+                >{{ articleResponse.author.username }}</a
+              >
               <span class="date">{{
                 articleResponse.createdAt | date: "mediumDate"
               }}</span>
@@ -23,7 +25,9 @@
             <button
               class="btn btn-sm btn-outline-secondary"
               (click)="toggleFollowAuthor(articleResponse)"
-              [ngClass]="articleResponse.author.following ? 'following' : 'unfollowing'"
+              [ngClass]="
+                articleResponse.author.following ? 'following' : 'unfollowing'
+              "
             >
               <i class="ion-plus-round"></i>
               &nbsp;
@@ -34,11 +38,14 @@
             <button
               class="btn btn-sm btn-outline-primary"
               (click)="toggleFavoritedArticle(articleResponse)"
-              [ngClass]="articleResponse.favorited ? 'unfavorited' : 'favorited'"
+              [ngClass]="
+                articleResponse.favorited ? 'unfavorited' : 'favorited'
+              "
             >
               <i class="ion-heart"></i>
-              &nbsp;  {{ articleResponse.favorited ? "Unfavorited" : "Favorited" }}
-              <span class="counter" 
+              &nbsp;
+              {{ articleResponse.favorited ? "Unfavorited" : "Favorited" }}
+              <span class="counter"
                 >({{ articleResponse.favoritesCount }})</span
               >
             </button>
@@ -82,7 +89,9 @@
             <button
               class="btn btn-sm btn-outline-secondary"
               (click)="toggleFollowAuthor(articleResponse)"
-              [ngClass]="articleResponse.author.following ? 'following' : 'unfollowing'"
+              [ngClass]="
+                articleResponse.author.following ? 'following' : 'unfollowing'
+              "
             >
               <i class="ion-plus-round"></i>
               &nbsp;
@@ -93,10 +102,13 @@
             <button
               class="btn btn-sm btn-outline-primary"
               (click)="toggleFavoritedArticle(articleResponse)"
-              [ngClass]="articleResponse.favorited ? 'unfavorited' : 'favorited'"
+              [ngClass]="
+                articleResponse.favorited ? 'unfavorited' : 'favorited'
+              "
             >
               <i class="ion-heart"></i>
-              &nbsp; {{ articleResponse.favorited ? "Unfavorited" : "Favorited" }}
+              &nbsp;
+              {{ articleResponse.favorited ? "Unfavorited" : "Favorited" }}
               <span class="counter"
                 >({{ articleResponse.favoritesCount }})</span
               >

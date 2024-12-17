@@ -51,4 +51,16 @@ export const routes: Routes = [
     title: 'Editor - Conduit',
     canMatch: [authGuard],
   },
+  {
+    path: 'profile',
+    children: [
+      {
+        path: ':username',
+        loadComponent: () =>
+          import('./profile/profile.component').then((c) => c.ProfileComponent),
+        loadChildren: () => import('./profile/profile.routes'),
+        title: 'Profile',
+      },
+    ],
+  },
 ];

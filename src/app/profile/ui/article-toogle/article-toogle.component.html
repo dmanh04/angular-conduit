@@ -1,0 +1,15 @@
+<div class="articles-toggle">
+  <ul class="nav nav-pills outline-active">
+    @for (item of tabList; track $index) {
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="item.link"
+          >{{ item.title }}</a
+        >
+      </li>
+    }
+  </ul>
+</div>
