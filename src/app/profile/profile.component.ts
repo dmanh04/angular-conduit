@@ -9,10 +9,8 @@ import { provideComponentStore } from '@ngrx/component-store';
 import { ProfileStore } from './profile.store';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { ProfileResponse } from '../shared/models';
-import { GetArticleQueryParams } from '../shared/services';
-import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from '../shared/constants';
 import { ArticleToogleComponent } from './ui/article-toogle/article-toogle.component';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-profile',

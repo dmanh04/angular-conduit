@@ -24,7 +24,7 @@ export class ProfileStore
 
   readonly isNotFound$ = this.select((state) => state.isNotFound);
 
-  readonly profile$ = this.select((state) => state.profile!);
+  readonly profile$ = this.select((state) => state.profile);
 
   ngrxOnStoreInit() {
     this.setState(initProfileState);
