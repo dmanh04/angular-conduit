@@ -10,9 +10,11 @@
         <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
       </a>
       &nbsp;
-      <a routerLink="/profile/jacob-schmidt" class="comment-author">{{
-        item.author.username
-      }}</a>
+      <a
+        routerLink="/profile/{{ item.author.username }}"
+        class="comment-author"
+        >{{ item.author.username }}</a
+      >
       <span class="date-posted">{{ item.createdAt | date: "mediumDate" }}</span>
     </div>
   </div>

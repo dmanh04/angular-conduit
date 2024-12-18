@@ -1,0 +1,41 @@
+@for (item of profileArticleListStore.articles$ | async; track item.slug) {
+  <div class="article-preview">
+    <div class="article-meta">
+      <a routerLink="/profile/{{ item.author.username }}"
+        ><img src="http://i.imgur.com/Qr71crq.jpg"
+      /></a>
+      <div class="info">
+        <a routerLink="/profile/{{ item.author.username }}" class="author">{{
+          item.author.username
+        }}</a>
+        <span class="date">{{ item.createdAt | date }}</span>
+      </div>
+      <button
+        class="btn btn-outline-primary btn-sm pull-xs-right"
+        [ngClass]="item.favorited ? 'unfavorited' : 'favorited'"
+        (click)="toogleFavorite(item)"
+      >
+        <i class="ion-heart"></i> {{ item.favoritesCount }}
+      </button>
+    </div>
+    <a routerLink="/article/{{ item.slug }}" class="preview-link">
+      <h1>{{ item.title }}</h1>
+      <p>{{ item.slug }}</p>
+      <span>Read more...</span>
+      <ul class="tag-list">
+        @for (tag of item.tagList; track $index) {
+          <li class="tag-default tag-pill tag-outline">{{ tag }}</li>
+        }
+      </ul>
+    </a>
+  </div>
+} @empty {
+  <div class="empty">List article is empty</div>
+}
+<app-pagination
+  [page]="(this.profileArticleListStore.page$ | async)!"
+  [size]="(this.profileArticleListStore.size$ | async)!"
+  [totalPages]="(this.profileArticleListStore.totalPages$ | async)!"
+  [totalElements]="(this.profileArticleListStore.totalElements$ | async)!"
+  (changPage)="changePage($event)"
+></app-pagination>
