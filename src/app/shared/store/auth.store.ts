@@ -58,6 +58,13 @@ export class AuthStore
     }),
   );
 
+  readonly handleAfterUpdateUser = (currentUser: CurrentUser) => {
+    this.patchState({
+      currentUser: currentUser,
+    });
+    this.#localStorageService.setItem(STORAGE_KEY.user, currentUser);
+  };
+
   readonly handleAfterRecieveToken = (auth: AuthResponse) => {
     this.#localStorageService.setItem(STORAGE_KEY.token, auth);
   };

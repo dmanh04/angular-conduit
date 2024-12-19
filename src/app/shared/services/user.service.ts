@@ -6,6 +6,7 @@ import {
   CurrentUser,
   LoginRequest,
   RegisterRequest,
+  UpdateUserRequest,
   UserResponse,
 } from '../models';
 import { Observable } from 'rxjs';
@@ -28,5 +29,11 @@ export class UserService {
     registerUser: RegisterRequest,
   ): Observable<BaseResponse<CurrentUser>> {
     return this.#http.post<BaseResponse<CurrentUser>>('register', registerUser);
+  }
+
+  updateUser(
+    updateUser: UpdateUserRequest,
+  ): Observable<BaseResponse<CurrentUser>> {
+    return this.#http.put<BaseResponse<CurrentUser>>('users', updateUser);
   }
 }
