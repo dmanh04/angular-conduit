@@ -43,6 +43,13 @@ export const routes: Routes = [
     canMatch: [nonAuthGuard],
   },
   {
+    path: 'setting',
+    loadComponent: () =>
+      import('./setting/setting.component').then((c) => c.SettingComponent),
+    title: 'Setting',
+    canMatch: [authGuard],
+  },
+  {
     path: 'editor',
     loadComponent: () =>
       import('./article-editor/article-editor.component').then(
